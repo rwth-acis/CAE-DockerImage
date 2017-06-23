@@ -30,7 +30,11 @@ RUN apt-get install -y \
                      unzip \
                      npm \
 		     nodejs \
-		     nodejs-legacy
+		     nodejs-legacy \
+			 screen \
+			 wget
+
+RUN npm install -g http-server
 
 # Add MySQL configuration
 COPY mysql.cnf /etc/mysql/conf.d/mysql.cnf
@@ -42,6 +46,14 @@ RUN apt-get -yq install mysql-server-5.5 && \
     if [ ! -f /usr/share/mysql/my-default.cnf ] ; then cp /etc/mysql/conf.d/mysql.cnf /usr/share/mysql/my-default.cnf; fi && \
     mysql_install_db > /dev/null 2>&1
 
+#Create file structure
+RUN mkdir  services && \
+	mkdir  web && \
+	cd web && \
+	touch test.html && \
+	echo "Test" > test.html
+
+
 # Create mount point
 WORKDIR /build
 # Add default appliction structure and deployment script
@@ -49,6 +61,7 @@ COPY build/ ./
 COPY opt/ /opt
 
 RUN chmod +x /opt/cae/deployment.sh
+RUN chmod +x /opt/startup.sh
 
 #Environment variables for the deployment script
 # Mysql options
@@ -61,7 +74,11 @@ ENV DOCKER_URL http://192.168.2.101
 ENV MICROSERVICE_PORT 8086
 ENV HTTP_PORT 8087
 
-CMD "/opt/cae/deployment.sh"
+#CMD "/opt/cae/deployment.sh"
 
 EXPOSE 8086
 EXPOSE 8087
+EXPOSE 80
+
+CMD "/opt/startup.sh"
+
