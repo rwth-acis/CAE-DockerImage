@@ -49,13 +49,12 @@ RUN apt-get -yq install mysql-server-5.5 && \
      mysql_install_db > /dev/null 2>&1
 
 #Create file structure
-RUN mkdir  services && \
-	mkdir  web && \
- 	mkdir source && \
- 	cd web && \
- 	touch test.html && \
- 	echo "Test" > test.html
+RUN mkdir services && \
+	mkdir services/lib && \
+	mkdir web && \
+ 	mkdir source
 
+######## ROLE ##########
  RUN cd source && \
 	git clone https://github.com/rwth-acis/ROLE-SDK.git && \
 	cd ROLE-SDK && \
@@ -64,6 +63,26 @@ RUN mkdir  services && \
 
 RUN cd source/ROLE-SDK/assembly/target && \
 	tar -C / -zxvf role-m10-sdk.tar.gz
+########################
+
+######## yjs server ###########
+RUN npm install -g y-websockets-server
+########################
+
+######## CAE ###########
+RUN cd source && \
+	git clone https://github.com/rwth-acis/CAE-Model-Persistence-Service.git && \
+	git clone https://github.com/rwth-acis/CAE-Code-Generation-Service.git && \
+	git clone https://github.com/rwth-acis/CAE-Frontend.git && \
+	cd CAE-Model-Persistence-Service && \
+	ant jar && \
+	cp service/*.jar /services/ && \
+	cp lib/*.jar /services/lib/ && \
+	cd ../CAE-Code-Generation-Service && \
+	ant jar && \
+	cp service/*.jar /services/ && \
+	cd ../CAE-Frontend
+########################
 
 # Create mount point
 WORKDIR /build
@@ -92,6 +111,7 @@ RUN chmod +x /opt/startup.sh
 
 EXPOSE 80
 EXPOSE 8073
+EXPOSE 1234
 
 WORKDIR /
 
