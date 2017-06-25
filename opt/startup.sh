@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 http-server -p 80 &
 DEBUG=y*,-y:connector-message y-websockets-server --port 1234

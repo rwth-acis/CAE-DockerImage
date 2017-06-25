@@ -78,7 +78,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apk update && apk upgrade
 
-RUN apk add --update python g++ git apache-ant maven make
+RUN apk add --update python g++ git apache-ant maven make bash
 
 RUN npm install -g http-server bower grunt-cli grunt
 
@@ -153,5 +153,4 @@ RUN chmod +x /opt/cae/deployment.sh && chmod +x /opt/startup.sh
 
 WORKDIR /
 
-CMD "/opt/startup.sh"
-#CMD "bash"
+ENTRYPOINT ["/opt/startup.sh"]
