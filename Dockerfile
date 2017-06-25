@@ -1,6 +1,6 @@
 #FROM openjdk:8-alpine
 # AlpineLinux with a glibc-2.23 and Oracle Java 8
-FROM alpine:3.6
+FROM mhart/alpine-node
 
 MAINTAINER Anastas Dancha <anapsix@random.io>
 # thanks to Vladimir Krivosheev <develar@gmail.com> aka @develar for smaller image
@@ -78,7 +78,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apk update && apk upgrade
 
-RUN apk add --update python g++ git apache-ant maven nodejs nodejs-npm && npm install npm@latest -g
+RUN apk add --update python g++ git apache-ant maven
 
 RUN npm install -g http-server bower grunt-cli grunt
 
@@ -96,17 +96,16 @@ RUN mysql_install_db > /dev/null 2>&1
 
 # #Create file structure
 RUN mkdir services && \
- 	mkdir services/lib && \
- 	mkdir web && \
+ 	  mkdir services/lib && \
+ 	  mkdir web && \
   	mkdir source
 
 # ######## ROLE ##########
 ADD role-m10-sdk.tar.gz /source
 
 # ######## yjs server ###########
-# #workaround https://github.com/nodejs/node/issues/13667
-RUN npm config set dist-url https://nodejs.org/download/release/ && \
- 	npm install -g y-websockets-server
+# --unsafe-perm fixes gyp issue
+RUN npm install --unsafe-perm -g y-websockets-server
 # ########################
 
 # ######## CAE ###########
@@ -155,4 +154,3 @@ RUN chmod +x /opt/cae/deployment.sh && chmod +x /opt/startup.sh
 # #WORKDIR /
 
 CMD "/opt/startup.sh"
-
