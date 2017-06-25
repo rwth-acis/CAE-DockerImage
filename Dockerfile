@@ -33,7 +33,7 @@ RUN set -ex && \
     gunzip /tmp/java.tar.gz && \
     tar -C /opt -xf /tmp/java.tar && \
     ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk && \
-    find /opt/jdk/ -maxdepth 1 -mindepth 1 | grep -v jre | xargs rm -rf && \
+    #find /opt/jdk/ -maxdepth 1 -mindepth 1 | grep -v jre | xargs rm -rf && \
     cd /opt/jdk/ && ln -s ./jre/bin ./bin && \
     if [ "${JAVA_JCE}" == "unlimited" ]; then echo "Installing Unlimited JCE policy" && \
       curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/jce_policy-${JAVA_VERSION_MAJOR}.zip \
@@ -43,34 +43,34 @@ RUN set -ex && \
     fi && \
     sed -i s/#networkaddress.cache.ttl=-1/networkaddress.cache.ttl=10/ $JAVA_HOME/jre/lib/security/java.security && \
     apk del curl glibc-i18n && \
-    rm -rf /opt/jdk/jre/plugin \
-           /opt/jdk/jre/bin/javaws \
-           /opt/jdk/jre/bin/jjs \
-           /opt/jdk/jre/bin/orbd \
-           /opt/jdk/jre/bin/pack200 \
-           /opt/jdk/jre/bin/policytool \
-           /opt/jdk/jre/bin/rmid \
-           /opt/jdk/jre/bin/rmiregistry \
-           /opt/jdk/jre/bin/servertool \
-           /opt/jdk/jre/bin/tnameserv \
-           /opt/jdk/jre/bin/unpack200 \
-           /opt/jdk/jre/lib/javaws.jar \
-           /opt/jdk/jre/lib/deploy* \
-           /opt/jdk/jre/lib/desktop \
-           /opt/jdk/jre/lib/*javafx* \
-           /opt/jdk/jre/lib/*jfx* \
-           /opt/jdk/jre/lib/amd64/libdecora_sse.so \
-           /opt/jdk/jre/lib/amd64/libprism_*.so \
-           /opt/jdk/jre/lib/amd64/libfxplugins.so \
-           /opt/jdk/jre/lib/amd64/libglass.so \
-           /opt/jdk/jre/lib/amd64/libgstreamer-lite.so \
-           /opt/jdk/jre/lib/amd64/libjavafx*.so \
-           /opt/jdk/jre/lib/amd64/libjfx*.so \
-           /opt/jdk/jre/lib/ext/jfxrt.jar \
-           /opt/jdk/jre/lib/ext/nashorn.jar \
-           /opt/jdk/jre/lib/oblique-fonts \
-           /opt/jdk/jre/lib/plugin.jar \
-           /tmp/* /var/cache/apk/* && \
+    #rm -rf   /opt/jdk/jre/plugin \
+    #        /opt/jdk/jre/bin/javaws \
+    #        /opt/jdk/jre/bin/jjs \
+    #        /opt/jdk/jre/bin/orbd \
+    #        /opt/jdk/jre/bin/pack200 \
+    #        /opt/jdk/jre/bin/policytool \
+    #        /opt/jdk/jre/bin/rmid \
+    #        /opt/jdk/jre/bin/rmiregistry \
+    #        /opt/jdk/jre/bin/servertool \
+    #        /opt/jdk/jre/bin/tnameserv \
+    #        /opt/jdk/jre/bin/unpack200 \
+    #        /opt/jdk/jre/lib/javaws.jar \
+    #        /opt/jdk/jre/lib/deploy* \
+    #        /opt/jdk/jre/lib/desktop \
+    #        /opt/jdk/jre/lib/*javafx* \
+    #        /opt/jdk/jre/lib/*jfx* \
+    #        /opt/jdk/jre/lib/amd64/libdecora_sse.so \
+    #        /opt/jdk/jre/lib/amd64/libprism_*.so \
+    #        /opt/jdk/jre/lib/amd64/libfxplugins.so \
+    #        /opt/jdk/jre/lib/amd64/libglass.so \
+    #        /opt/jdk/jre/lib/amd64/libgstreamer-lite.so \
+    #        /opt/jdk/jre/lib/amd64/libjavafx*.so \
+    #        /opt/jdk/jre/lib/amd64/libjfx*.so \
+    #        /opt/jdk/jre/lib/ext/jfxrt.jar \
+    #        /opt/jdk/jre/lib/ext/nashorn.jar \
+    #        /opt/jdk/jre/lib/oblique-fonts \
+    #        /opt/jdk/jre/lib/plugin.jar \
+    rm -rf   /tmp/* /var/cache/apk/* && \
     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
 
 # Let the container know that there is no tty
@@ -78,7 +78,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apk update && apk upgrade
 
-RUN apk add --update python g++ git apache-ant maven
+RUN apk add --update python g++ git apache-ant maven make
 
 RUN npm install -g http-server bower grunt-cli grunt
 
@@ -108,11 +108,11 @@ ADD role-m10-sdk.tar.gz /source
 RUN npm install --unsafe-perm -g y-websockets-server
 # ########################
 
-# ######## CAE ###########
+######## CAE ###########
 RUN cd source && \
- 	git clone https://github.com/rwth-acis/CAE-Model-Persistence-Service.git && \
+  git clone https://github.com/rwth-acis/CAE-Model-Persistence-Service.git && \
  	git clone https://github.com/rwth-acis/CAE-Code-Generation-Service.git && \
-    git clone https://github.com/rwth-acis/CAE-Frontend.git && \
+  git clone https://github.com/rwth-acis/CAE-Frontend.git && \
  	cd CAE-Model-Persistence-Service && \
  	ant jar && \
  	cp service/*.jar /services/ && \
@@ -121,7 +121,7 @@ RUN cd source && \
  	ant jar && \
  	cp service/*.jar /services/ && \
  	cd ../CAE-Frontend
-# ########################
+########################
 
 # Create mount point
 WORKDIR /build
@@ -151,6 +151,7 @@ RUN chmod +x /opt/cae/deployment.sh && chmod +x /opt/startup.sh
 # #EXPOSE 8073
 # #EXPOSE 1234
 
-# #WORKDIR /
+WORKDIR /
 
 CMD "/opt/startup.sh"
+#CMD "bash"
