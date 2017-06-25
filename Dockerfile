@@ -2,10 +2,6 @@
 # AlpineLinux with a glibc-2.23 and Oracle Java 8
 FROM mhart/alpine-node
 
-MAINTAINER Anastas Dancha <anapsix@random.io>
-# thanks to Vladimir Krivosheev <develar@gmail.com> aka @develar for smaller image
-# and Victor Palma <palma.victor@gmail.com> aka @devx for pointing it out
-
 # Java Version and other ENV
 ENV JAVA_VERSION_MAJOR=8 \
     JAVA_VERSION_MINOR=131 \
@@ -16,6 +12,17 @@ ENV JAVA_VERSION_MAJOR=8 \
     PATH=${PATH}:/opt/jdk/bin \
     GLIBC_VERSION=2.23-r3 \
     LANG=C.UTF-8
+
+# Environment variables for the deployment script
+# Mysql options
+ENV MYSQL_USER cae-user
+ENV MYSQL_PASS cae-user-1234
+ENV ON_CREATE_DB cae-schema
+# Urls
+ENV JENKINS_URL http://192.168.2.101:8000
+ENV DOCKER_URL http://192.168.2.101
+ENV MICROSERVICE_PORT 8086
+ENV HTTP_PORT 8087
 
 # do all in one step
 RUN set -ex && \
@@ -131,26 +138,14 @@ COPY opt/ /opt
 
 RUN chmod +x /opt/cae/deployment.sh && chmod +x /opt/startup.sh
 
-# # #Environment variables for the deployment script
-# # # Mysql options
-# # ENV MYSQL_USER cae-user
-# # ENV MYSQL_PASS cae-user-1234
-# # ENV ON_CREATE_DB cae-schema
-# # # Urls
-# # ENV JENKINS_URL http://192.168.2.101:8000
-# # ENV DOCKER_URL http://192.168.2.101
-# # ENV MICROSERVICE_PORT 8086
-# # ENV HTTP_PORT 8087
+# EXPOSE 8086
+# EXPOSE 8087
 
-# # #CMD "/opt/cae/deployment.sh"
-
-# # EXPOSE 8086
-# # EXPOSE 8087
-
-# #EXPOSE 80
-# #EXPOSE 8073
-# #EXPOSE 1234
+EXPOSE 80
+EXPOSE 8073
+EXPOSE 1234
 
 WORKDIR /
 
-ENTRYPOINT ["/opt/startup.sh"]
+#ENTRYPOINT ["/opt/startup.sh"]
+CMD "bash"
