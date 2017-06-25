@@ -147,5 +147,5 @@ EXPOSE 1234
 
 WORKDIR /
 
-#ENTRYPOINT ["/opt/startup.sh"]
-CMD "bash"
+ENTRYPOINT ["/opt/startup.sh"]
+#CMD "bash"
