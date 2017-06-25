@@ -130,10 +130,7 @@ RUN cd source && \
  	cd ../CAE-Frontend
 ########################
 
-# Create mount point
-WORKDIR /build
 # Add default appliction structure and deployment script
-COPY build/ ./
 COPY opt/ /opt
 
 RUN chmod +x /opt/cae/deployment.sh && chmod +x /opt/startup.sh
