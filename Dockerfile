@@ -88,7 +88,9 @@ RUN apk update && apk upgrade
 
 RUN apk add --update python g++ git apache-ant maven make bash
 
-RUN npm install -g http-server bower grunt-cli grunt
+RUN npm install -g http-server bower grunt-cli grunt && \
+    # --unsafe-perm fixes gyp issue
+    npm install -g --unsafe-perm y-websockets-server
 
 RUN apk add --update mariadb mariadb-client
 
@@ -103,19 +105,15 @@ COPY mysqld_charset.cnf /etc/mysql/mysqld_charset.cnf
 RUN mysql_install_db > /dev/null 2>&1
 
 # #Create file structure
-RUN mkdir services && \
- 	  mkdir services/lib && \
- 	  mkdir web && \
-  	  mkdir source && \
-	  mkdir ROLE
+RUN mkdir CAE && \
+    mkdir CAE/lib && \
+    mkdir CAE/etc && \
+    mkdir web && \
+    mkdir source && \
+    mkdir ROLE
 
 # ######## ROLE ##########
 ADD role-m10-sdk.tar.gz /ROLE
-
-# ######## yjs server ###########
-# --unsafe-perm fixes gyp issue
-RUN npm install --unsafe-perm -g y-websockets-server
-# ########################
 
 ######## CAE ###########
 RUN cd source && \
@@ -124,12 +122,13 @@ RUN cd source && \
   git clone https://github.com/rwth-acis/CAE-Frontend.git && \
  	cd CAE-Model-Persistence-Service && \
  	ant jar && \
- 	cp service/*.jar /services/ && \
- 	cp lib/*.jar /services/lib/ && \
+ 	cp service/*.jar /CAE/ && \
+ 	cp lib/*.jar /CAE/lib/ && \
  	cd ../CAE-Code-Generation-Service && \
  	ant jar && \
- 	cp service/*.jar /services/ && \
- 	cd ../CAE-Frontend
+ 	cp service/*.jar /CAE/ && \
+ 	cp lib/*.jar /CAE/lib/ && \
+	cd ../CAE-Frontend
 ########################
 
 # Add default appliction structure and deployment script
