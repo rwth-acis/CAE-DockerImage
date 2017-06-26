@@ -7,5 +7,8 @@ cd ROLE/role-m10-sdk
 chmod +x bin/start.sh
 #chmod -R 777 ../role-m10-sdk/
 echo "ROLE"
-sh bin/start.sh 
+sh bin/start.sh &
 echo "Loading spaces"
+echo "CAE"
+chmod +x /opt/cae/start.sh
+sh /opt/cae/start.sh
