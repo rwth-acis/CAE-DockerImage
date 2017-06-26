@@ -106,10 +106,11 @@ RUN mysql_install_db > /dev/null 2>&1
 RUN mkdir services && \
  	  mkdir services/lib && \
  	  mkdir web && \
-  	mkdir source
+  	  mkdir source && \
+	  mkdir ROLE
 
 # ######## ROLE ##########
-ADD role-m10-sdk.tar.gz /source
+ADD role-m10-sdk.tar.gz /ROLE
 
 # ######## yjs server ###########
 # --unsafe-perm fixes gyp issue
