@@ -1,6 +1,6 @@
-#FROM openjdk:8-alpine
-# AlpineLinux with a glibc-2.23 and Oracle Java 8
 FROM mhart/alpine-node
+
+LABEL maintainer "jonas.koenning@rwth-aachen.de"
 
 # Java Version and other ENV
 ENV JAVA_VERSION_MAJOR=8 \
@@ -25,6 +25,7 @@ ENV MICROSERVICE_PORT 8086
 ENV HTTP_PORT 8087
 
 # do all in one step
+# TODO: Image can be made leaner here by removing parts of the java installation
 RUN set -ex && \
     apk upgrade --update && \
     apk add --update libstdc++ curl ca-certificates bash && \
@@ -81,7 +82,7 @@ RUN set -ex && \
     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
 
 # Let the container know that there is no tty
-ENV DEBIAN_FRONTEND noninteractive
+#ENV DEBIAN_FRONTEND noninteractive
 
 RUN apk update && apk upgrade
 
@@ -91,7 +92,7 @@ RUN npm install -g http-server bower grunt-cli grunt
 
 RUN apk add --update mariadb mariadb-client
 
-# # Add MySQL configuration
+# Add MySQL configuration
 COPY mysql.cnf /etc/mysql/my.cnf
 COPY mysqld_charset.cnf /etc/mysql/mysqld_charset.cnf
 
