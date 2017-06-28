@@ -50,7 +50,17 @@ RUN mkdir CAE && \
     mkdir ROLE
 
 # ######## ROLE ##########
-ADD role-m10-sdk.tar.gz /ROLE
+RUN cd source && \
+	git clone https://github.com/rwth-acis/ROLE-SDK.git && \
+	cd ROLE-SDK && \
+	git checkout tags/v10.1.1 -b localBuildBranch && \
+	mvn clean package && \
+	cp assembly/target/role-m10-sdk.tar.gz /ROLE/role.tar.gz && \
+	cd /ROLE && \
+	tar -xzf role.tar.gz && \
+	rm role.tar.gz
+	
+#ADD role-m10-sdk.tar.gz /ROLE
 
 ######## CAE ###########
 RUN cd source && \
@@ -84,5 +94,5 @@ EXPOSE 1234
 
 WORKDIR /
 
-#ENTRYPOINT ["/opt/startup.sh"]
-CMD "bash"
+ENTRYPOINT ["/opt/startup.sh"]
+#CMD "bash"
