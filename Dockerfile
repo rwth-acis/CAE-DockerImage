@@ -22,16 +22,18 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update
 
-RUN apt-get install -y --no-install-recommends python g++ git ant maven make bash npm
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+RUN apt-get install -y --no-install-recommends nodejs python g++ git ant maven make bash
 
-RUN npm install -g http-server bower grunt-cli grunt && \
-    # --unsafe-perm fixes gyp issue
-    npm install -g --unsafe-perm y-websockets-server
+RUN npm install -g http-server bower grunt-cli grunt
+    
+#Debian node naming issue
+#RUN ln -s /usr/bin/nodejs /usr/bin/node
+
+# --unsafe-perm fixes gyp issue
+RUN npm install -g --unsafe-perm y-websockets-server
 
 RUN apt-get install -y --no-install-recommends mariadb-server
-
-#Debian node naming issue
-RUN ln -s /usr/bin/nodejs /usr/bin/node
 
 # Add MySQL configuration
 COPY mysql.cnf /etc/mysql/my.cnf
