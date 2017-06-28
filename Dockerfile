@@ -80,9 +80,11 @@ RUN cd source && \
 ########################
 
 # Add default appliction structure and deployment script
-COPY opt/ /opt
+COPY opt /opt
 
-RUN chmod +x /opt/cae/deployment.sh && chmod +x /opt/startup.sh
+RUN chmod +x /opt/cae/deployment.sh && \
+	mv /opt/cae/startCAE.sh /startCAE.sh && \
+	chmod +x /startCAE.sh
 
 # EXPOSE 8086
 # EXPOSE 8087
