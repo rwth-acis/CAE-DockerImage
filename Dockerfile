@@ -41,16 +41,10 @@ COPY mysqld_charset.cnf /etc/mysql/mysqld_charset.cnf
 
 RUN mysql_install_db > /dev/null 2>&1
 
-#Create file structure
-RUN mkdir CAE && \
-    mkdir CAE/lib && \
-    mkdir CAE/etc && \
-    mkdir web && \
-    mkdir source && \
-    mkdir ROLE
-
 # ######## ROLE ##########
-RUN cd source && \
+RUN mkdir source && \
+	mkdir ROLE && \
+	cd source && \
 	git clone https://github.com/rwth-acis/ROLE-SDK.git && \
 	cd ROLE-SDK && \
 	git checkout tags/v10.1.1 -b localBuildBranch && \
@@ -60,7 +54,12 @@ RUN cd source && \
 	tar -xzf role.tar.gz && \
 	rm role.tar.gz
 	
-#ADD role-m10-sdk.tar.gz /ROLE
+#Create file structure
+RUN mkdir CAE && \
+    mkdir CAE/lib && \
+    mkdir CAE/etc && \
+	mkdir CAE/service && \
+    mkdir web
 
 ######## CAE ###########
 RUN cd source && \
@@ -69,12 +68,12 @@ RUN cd source && \
   git clone https://github.com/rwth-acis/CAE-Frontend.git && \
  	cd CAE-Model-Persistence-Service && \
  	ant jar && \
- 	cp service/*.jar /CAE/ && \
+ 	cp service/*.jar /CAE/service/ && \
  	cp service/*.jar /CAE/lib/ && \
 	cp lib/*.jar /CAE/lib/ && \
  	cd ../CAE-Code-Generation-Service && \
  	ant jar && \
- 	cp service/*.jar /CAE/ && \
+ 	cp service/*.jar /CAE/service/ && \
  	cp service/*.jar /CAE/lib/ && \
 	cp lib/*.jar /CAE/lib/ && \
 	cd ../CAE-Frontend
@@ -94,5 +93,5 @@ EXPOSE 1234
 
 WORKDIR /
 
-ENTRYPOINT ["/opt/startup.sh"]
-#CMD "bash"
+#ENTRYPOINT ["/opt/startup.sh"]
+CMD "bash"
