@@ -71,11 +71,13 @@ RUN cd source && \
  	cp service/*.jar /CAE/service/ && \
  	cp service/*.jar /CAE/lib/ && \
 	cp lib/*.jar /CAE/lib/ && \
- 	cd ../CAE-Code-Generation-Service && \
- 	ant jar && \
+ 	cp etc/i5.las2peer.services.modelPersistenceService.ModelPersistenceService.properties /CAE/etc/ && \
+	cd ../CAE-Code-Generation-Service && \
+	ant jar && \
  	cp service/*.jar /CAE/service/ && \
  	cp service/*.jar /CAE/lib/ && \
 	cp lib/*.jar /CAE/lib/ && \
+	cp etc/i5.las2peer.services.codeGenerationService.CodeGenerationService.properties /CAE/etc/ && \
 	cd ../CAE-Frontend
 ########################
 
