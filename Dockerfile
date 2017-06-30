@@ -88,12 +88,15 @@ RUN chmod +x /opt/cae/deployment.sh && \
 	mv /opt/cae/startCAE.sh /startCAE.sh && \
 	chmod +x /startCAE.sh
 
-# EXPOSE 8086
-# EXPOSE 8087
 
+#debug and control server
 EXPOSE 80
+#ROLE
 EXPOSE 8073
+#y-js websocket server
 EXPOSE 1234
+#Webconnector
+EXPOSE 8080
 
 WORKDIR /
 
