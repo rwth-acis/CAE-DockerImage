@@ -86,7 +86,8 @@ COPY opt /opt
 
 RUN chmod +x /opt/cae/deployment.sh && \
 	mv /opt/cae/startCAE.sh /startCAE.sh && \
-	chmod +x /startCAE.sh
+	chmod +x /startCAE.sh && \
+	chmod +x /opt/startup.sh
 
 
 #debug and control server
@@ -100,5 +101,5 @@ EXPOSE 8080
 
 WORKDIR /
 
-#ENTRYPOINT ["/opt/startup.sh"]
-CMD "bash"
+ENTRYPOINT ["/opt/startup.sh"]
+#CMD "bash /opt/startup.sh"
