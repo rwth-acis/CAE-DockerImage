@@ -14,4 +14,11 @@ Checkout the repository, change your directory into it and build it just like yo
 docker build -t cae .
 ```
 ## Running the image (TBC)
-You need to specify port bindings for the services contained in this image
+To run the image detached without specifying port bindings yourself use
+```shell
+docker run -d -P --name cae cae
+```
+You can now see what ports where assigned to the one's listed as exposed in the dockerfile by running
+```shell
+docker port cae
+```
