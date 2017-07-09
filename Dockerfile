@@ -102,4 +102,4 @@ EXPOSE 8080
 WORKDIR /
 
 ENTRYPOINT ["/opt/startup.sh"]
-#CMD "bash /opt/startup.sh"
+#CMD "bash"

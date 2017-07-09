@@ -10,5 +10,6 @@ echo "ROLE"
 sh bin/start.sh &
 echo "Loading spaces"
 echo "CAE"
-chmod +x /opt/cae/start.sh
-sh /opt/cae/start.sh
+chmod +x /startCAE.sh
+cd /
+sh /startCAE.sh
