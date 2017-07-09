@@ -26,5 +26,5 @@ docker port cae
 
 To specify the port bindings yourself, usae the -p flag, in this example we map container ports to their host counterpart:
 ```shell
-docker run -d -p 1234:1234 -p 8073:8073 -p 8080:8080
+docker run -d -p 1234:1234 -p 8073:8073 -p 8080:8080 --name cae cae
 ```
