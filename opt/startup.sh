@@ -1,5 +1,7 @@
 #!/bin/sh
 
+service supervisor restart
+
 http-server -p 80 &
 DEBUG=y*,-y:connector-message y-websockets-server --port 1234 &
 
