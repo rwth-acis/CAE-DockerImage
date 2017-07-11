@@ -89,6 +89,8 @@ RUN chmod +x /opt/cae/deployment.sh && \
 	chmod +x /startCAE.sh && \
 	chmod +x /opt/startup.sh
 
+# Copy supervisor config
+COPY configs /etc/supervisor/conf.d
 
 #debug and control server
 EXPOSE 80
