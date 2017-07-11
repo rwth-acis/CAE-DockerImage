@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Permissions
+chmod +x /startCAE.sh
+
 # Make sure service is running
 service supervisor restart
 # Reread configs
@@ -17,6 +20,5 @@ supervisorctl update
 #sh bin/start.sh &
 #echo "Loading spaces"
 #echo "CAE"
-#chmod +x /startCAE.sh
 #cd /
 #sh /startCAE.sh
