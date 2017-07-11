@@ -23,7 +23,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
-RUN apt-get install -y --no-install-recommends screen nodejs python g++ git ant maven make bash
+RUN apt-get install -y --no-install-recommends supervisor screen nodejs python g++ git ant maven make bash
 
 RUN npm install -g http-server bower grunt-cli grunt
     
@@ -89,6 +89,8 @@ RUN chmod +x /opt/cae/deployment.sh && \
 	chmod +x /startCAE.sh && \
 	chmod +x /opt/startup.sh
 
+# Copy supervisor config
+COPY configs /etc/supervisor/conf.d
 
 #debug and control server
 EXPOSE 80
