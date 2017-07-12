@@ -23,7 +23,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
-RUN apt-get install -y --no-install-recommends screen nodejs python g++ git ant maven make bash
+RUN apt-get install -y --no-install-recommends supervisor screen nodejs python g++ git ant maven make bash
 
 RUN npm install -g http-server bower grunt-cli grunt
     
@@ -63,16 +63,19 @@ RUN mkdir CAE && \
 
 ######## CAE ###########
 RUN cd source && \
-  git clone https://github.com/rwth-acis/CAE-Model-Persistence-Service.git && \
+  	git clone https://github.com/rwth-acis/CAE-Model-Persistence-Service.git && \
  	git clone https://github.com/rwth-acis/CAE-Code-Generation-Service.git && \
-  git clone https://github.com/rwth-acis/CAE-Frontend.git && \
+  	git clone https://github.com/rwth-acis/CAE-Frontend.git && \
  	cd CAE-Model-Persistence-Service && \
+	git checkout tags/v0.6.7.1 -b localBuildBranch && \
  	ant jar && \
  	cp service/*.jar /CAE/service/ && \
  	cp service/*.jar /CAE/lib/ && \
 	cp lib/*.jar /CAE/lib/ && \
  	cp etc/i5.las2peer.services.modelPersistenceService.ModelPersistenceService.properties /CAE/etc/ && \
+	cp etc/i5.las2peer.webConnector.WebConnector.properties /CAE/etc/ && \
 	cd ../CAE-Code-Generation-Service && \
+	git checkout tags/v0.6.7.1 -b localBuildBranch && \
 	ant jar && \
  	cp service/*.jar /CAE/service/ && \
  	cp service/*.jar /CAE/lib/ && \
@@ -85,10 +88,10 @@ RUN cd source && \
 COPY opt /opt
 
 RUN chmod +x /opt/cae/deployment.sh && \
-	mv /opt/cae/startCAE.sh /startCAE.sh && \
-	chmod +x /startCAE.sh && \
 	chmod +x /opt/startup.sh
 
+# Copy supervisor config
+COPY configs /etc/supervisor/conf.d
 
 #debug and control server
 EXPOSE 80
