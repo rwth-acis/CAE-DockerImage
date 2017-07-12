@@ -63,10 +63,11 @@ RUN mkdir CAE && \
 
 ######## CAE ###########
 RUN cd source && \
-  git clone https://github.com/rwth-acis/CAE-Model-Persistence-Service.git && \
+  	git clone https://github.com/rwth-acis/CAE-Model-Persistence-Service.git && \
  	git clone https://github.com/rwth-acis/CAE-Code-Generation-Service.git && \
-  git clone https://github.com/rwth-acis/CAE-Frontend.git && \
+  	git clone https://github.com/rwth-acis/CAE-Frontend.git && \
  	cd CAE-Model-Persistence-Service && \
+	git checkout tags/v0.6.7.1 -b localBuildBranch && \
  	ant jar && \
  	cp service/*.jar /CAE/service/ && \
  	cp service/*.jar /CAE/lib/ && \
@@ -74,6 +75,7 @@ RUN cd source && \
  	cp etc/i5.las2peer.services.modelPersistenceService.ModelPersistenceService.properties /CAE/etc/ && \
 	cp etc/i5.las2peer.webConnector.WebConnector.properties /CAE/etc/ && \
 	cd ../CAE-Code-Generation-Service && \
+	git checkout tags/v0.6.7.1 -b localBuildBranch && \
 	ant jar && \
  	cp service/*.jar /CAE/service/ && \
  	cp service/*.jar /CAE/lib/ && \
