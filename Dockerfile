@@ -85,8 +85,6 @@ RUN cd source && \
 COPY opt /opt
 
 RUN chmod +x /opt/cae/deployment.sh && \
-	mv /opt/cae/startCAE.sh /startCAE.sh && \
-	chmod +x /startCAE.sh && \
 	chmod +x /opt/startup.sh
 
 # Copy supervisor config
