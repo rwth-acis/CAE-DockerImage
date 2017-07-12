@@ -1,7 +1,11 @@
 #!/bin/sh
 
 # Permissions
-chmod +x /startCAE.sh
+chmod +x /ROLE/role-m10-sdk/bin/start.sh
+chmod +x /opt/cae/start.sh
+chmod +x /opt/yjs/start.sh
+chmod +x /opt/debugserver/start.sh
+chmod -R 777 /ROLE/role-m10-sdk/
 
 # Make sure service is running
 service supervisor restart
@@ -10,15 +14,4 @@ supervisorctl reread
 # Enact changes
 supervisorctl update
 
-#http-server -p 80 &
-#DEBUG=y*,-y:connector-message y-websockets-server --port 1234 &
-
-#cd ROLE/role-m10-sdk
-#chmod +x bin/start.sh
-#chmod -R 777 ../role-m10-sdk/
-#echo "ROLE"
-#sh bin/start.sh &
-#echo "Loading spaces"
-#echo "CAE"
-#cd /
-#sh /startCAE.sh
+bash

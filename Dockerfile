@@ -72,6 +72,7 @@ RUN cd source && \
  	cp service/*.jar /CAE/lib/ && \
 	cp lib/*.jar /CAE/lib/ && \
  	cp etc/i5.las2peer.services.modelPersistenceService.ModelPersistenceService.properties /CAE/etc/ && \
+	cp etc/i5.las2peer.webConnector.WebConnector.properties /CAE/etc/ && \
 	cd ../CAE-Code-Generation-Service && \
 	ant jar && \
  	cp service/*.jar /CAE/service/ && \
@@ -85,8 +86,6 @@ RUN cd source && \
 COPY opt /opt
 
 RUN chmod +x /opt/cae/deployment.sh && \
-	mv /opt/cae/startCAE.sh /startCAE.sh && \
-	chmod +x /startCAE.sh && \
 	chmod +x /opt/startup.sh
 
 # Copy supervisor config
