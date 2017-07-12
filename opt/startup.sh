@@ -4,6 +4,8 @@
 chmod +x /ROLE/role-m10-sdk/bin/start.sh
 chmod +x /opt/cae/start.sh
 chmod +x /opt/yjs/start.sh
+chmod +x /opt/debugserver/start.sh
+chmod -R 777 /ROLE/role-m10-sdk/
 
 # Make sure service is running
 service supervisor restart
@@ -12,13 +14,4 @@ supervisorctl reread
 # Enact changes
 supervisorctl update
 
-bash 
-
-#http-server -p 80 &
-#chmod -R 777 ../role-m10-sdk/
-#echo "ROLE"
-#sh bin/start.sh &
-#echo "Loading spaces"
-#echo "CAE"
-#cd /
-#sh /startCAE.sh
+bash
