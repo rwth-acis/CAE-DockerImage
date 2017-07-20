@@ -10,10 +10,11 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
-app.post('/upload', function(req, res) {
+app.post('/upload/:service', function(req, res) {
     var form = new formidable.IncomingForm();
     form.multiples = true;
-    form.uploadDir = path.join(__dirname, '/uploads');
+    var service = req.params.service;
+    form.uploadDir = path.join(__dirname, `/uploads/${service}`);
     form.on('file', function(field, file) {
         fs.rename(file.path, path.join(form.uploadDir, file.name));
     });
