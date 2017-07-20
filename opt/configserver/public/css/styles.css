@@ -80,3 +80,7 @@ h2 {
 .panel-body {
   padding: 0px;
 }
+
+.container-fluid {
+  margin-top: 15px;
+}
