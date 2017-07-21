@@ -1,8 +1,4 @@
 var service;
-$('.upload-btn').on('click', function (){
-    $('#upload-input').click();
-    service = this.id;
-});
 
 $('#upload-input').on('change', function(){
 

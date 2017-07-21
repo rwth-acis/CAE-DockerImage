@@ -3,11 +3,33 @@ var app = express();
 var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
+var exec = require('child_process').exec;
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/index.html'));
+});
+
+app.get('/status', function(req, res) {
+    function prepareString(line) {
+        lineArr = line.split(" ");
+        line = "";
+        lineArr.forEach(function(element) {
+            element = element.trim();
+            if (element !== "") {
+                line += element;
+                line += " ";
+            }
+        }, this);
+        return line;
+    }
+    function puts(error, stdout, stderr) {
+        var statArr = stdout.split("\n");
+        statArr = statArr.map(prepareString);
+        res.json({ content: statArr });
+    }
+    exec("supervisorctl status", puts);
 });
 
 app.post('/upload/:service', function(req, res) {
