@@ -11,7 +11,7 @@ $('.restart-btn').on('click', function(){
     url: '/restart/' + service,
     type: 'GET',
     success: function(data){
-      
+      alert(`Stopping ${service}`);
     }
   });
 });

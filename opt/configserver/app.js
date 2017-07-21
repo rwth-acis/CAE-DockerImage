@@ -51,6 +51,26 @@ app.post('/upload/:service', function(req, res) {
 
 });
 
+app.get('/restart/:service', function(req, res){
+    var service = req.params.service;
+
+    function puts(error, stdout, stderr) {
+
+    }
+
+    exec(`supervisorctl restart ${service}`, puts);
+});
+
+app.get('/stop/:service', function(req, res) {
+    var service = req.params.service;
+
+    function puts(error, stdout, stderr) {
+
+    }
+
+    exec(`supervisorctl stop ${service}`, puts);
+});
+
 var server = app.listen(3000, function(){
     console.log('Server listening on port 3000');
 });

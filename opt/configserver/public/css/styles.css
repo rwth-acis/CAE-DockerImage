@@ -84,3 +84,11 @@ h2 {
 .container-fluid {
   margin-top: 15px;
 }
+
+.restart-btn {
+  margin:5px;
+}
+
+.stop-btn {
+  margin:5px;
+}

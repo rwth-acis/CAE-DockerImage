@@ -9,7 +9,7 @@ $( document ).ready(function() {
                 var text = "";
                 $("#statusArea").empty();
                 data.content.forEach(function (element) {
-                    $("#statusArea").append(`<p>${element}</p>`);
+                    $("#statusArea").append(`<div class="col-xs-12">${element}</div>`);
                 }, this);
             }
         });
