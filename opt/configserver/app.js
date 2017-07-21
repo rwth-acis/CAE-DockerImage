@@ -36,7 +36,8 @@ app.post('/upload/:service', function(req, res) {
     var form = new formidable.IncomingForm();
     form.multiples = true;
     var service = req.params.service;
-    form.uploadDir = path.join(__dirname, `/uploads/${service}`);
+    //form.uploadDir = path.join(__dirname, `/uploads/${service}`);
+    form.uploadDir = "/CAE/etc";
     form.on('file', function(field, file) {
         fs.rename(file.path, path.join(form.uploadDir, file.name));
     });
