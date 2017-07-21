@@ -4,7 +4,10 @@ $( document ).ready(function() {
     type: 'GET',
     success: function(data){
       console.log(data);
-      $('#statusArea').text(data);
+      var text = "";
+      data.content.forEach(function(element) {
+          $("#statusArea").append(`<p>${element}</p>`);
+      }, this);
     }
   });
 });
