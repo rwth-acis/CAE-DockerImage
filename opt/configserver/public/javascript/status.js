@@ -18,8 +18,3 @@ $( document ).ready(function() {
 
     getStatus();
 });
-
-$('.upload-btn').on('click', function (){
-    $('#upload-input').click();
-    service = this.id;
-});
