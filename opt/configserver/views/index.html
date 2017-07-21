@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>CAE Dashboard</title>
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href="css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="container-fluid">
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-xs-12">
+            <h2>Dashboard</h2>
+            <h4>Community Application Editor</h4>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-xs-12">
+            <h3>Status</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div id="statusArea"></div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-xs-4">
+            <button id="cae" class="btn btn-lg restart-btn" type="button">Restart CAE</button>
+            <button id="cae" class="btn btn-lg stop-btn" type="button">Stop CAE</button>
+          </div>
+          <div class="col-xs-4">
+            <button id="role" class="btn btn-lg restart-btn" type="button">Restart ROLE</button>
+            <button id="role" class="btn btn-lg stop-btn" type="button">Stop ROLE</button>
+          </div>
+          <div class="col-xs-4">
+            <button id="yjs" class="btn btn-lg restart-btn" type="button">Restart y-js server</button>
+            <button id="yjs" class="btn btn-lg stop-btn" type="button">Stop y-js server</button>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-xs-12">
+            <h3>Configuration</h3>
+          </div>
+          <div class="col-xs-8">
+            <span>Model Persistence Service</span>
+          </div>
+          <div class="col-xs-4">
+            <button id="model" class="btn btn-lg upload-btn" type="button">Upload Property File</button>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-xs-8">
+            <span>Code Generation Service</span>
+          </div>
+          <div class="col-xs-4">
+            <button id="code" class="btn btn-lg upload-btn" type="button">Upload Property File</button>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-xs-8">
+            <span>Web Connector</span>
+          </div>
+          <div class="col-xs-4">
+            <button id="web" class="btn btn-lg upload-btn" type="button">Upload Property File</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <input id="upload-input" type="file" name="uploads[]"></br>
+
+  <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="javascript/upload.js"></script>
+  <script src="javascript/status.js"></script>
+</body>
+
+</html>
