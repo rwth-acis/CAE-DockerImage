@@ -5,6 +5,28 @@ $('.upload-btn').on('click', function (){
     service = this.id;
 });
 
+$('.restart-btn').on('click', function(){
+  service = this.id;
+  $.ajax({
+    url: '/restart/' + service,
+    type: 'GET',
+    success: function(data){
+      
+    }
+  });
+});
+
+$('.stop-btn').on('click', function(){
+  service = this.id;
+  $.ajax({
+    url: '/stop/' + service,
+    type: 'GET',
+    success: function(data){
+
+    }
+  });
+});
+
 $('#upload-input').on('change', function(){
 
   var files = $(this).get(0).files;
