@@ -24,7 +24,7 @@ docker port cae
 ```
 (Note: This doesn't seem to work with ROLE at the moment. Specifying the port bindings yourself is recommended)
 
-To specify the port bindings yourself, usae the -p flag, in this example we map container ports to their host counterpart:
+To specify the port bindings yourself, use the -p flag, in this example we map container ports to their host counterpart:
 ```shell
 docker run -d -p 1234:1234 -p 8073:8073 -p 8080:8080 --name cae cae
 ```
