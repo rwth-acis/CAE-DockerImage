@@ -60,6 +60,41 @@
             <button id="model" class="btn btn-lg upload-btn" type="button">Upload Property File</button>
           </div>
         </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <form>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput1" aria-describedby="propertyHelp1" placeholder="jdbcDriverClassName" value="com.mysql.jdbc.Driver">
+                <small id="propertyHelp1" class="form-text text-muted">jdbcDriverClassName</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput2" aria-describedby="propertyHelp2" placeholder="jdbcUrl" value="jdbc:mysql://localhost:3306/">
+                <small id="propertyHelp2" class="form-text text-muted">jdbcUrl</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput3" aria-describedby="propertyHelp3" placeholder="jdbcSchema" value="commedit">
+                <small id="propertyHelp3" class="form-text text-muted">jdbcSchema</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput4" aria-describedby="propertyHelp4" placeholder="jdbcLogin" value="root">
+                <small id="propertyHelp4" class="form-text text-muted">jdbcLogin</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput5" aria-describedby="propertyHelp5" placeholder="jdbcPass" value="pass">
+                <small id="propertyHelp5" class="form-text text-muted">jdbcPass</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput6" aria-describedby="propertyHelp6" placeholder="semanticCheckService">
+                <small id="propertyHelp6" class="form-text text-muted">semanticCheckService</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput7" aria-describedby="propertyHelp7" placeholder="codeGenerationService" value="i5.las2peer.services.codeGenerationService.CodeGenerationService@0.1">
+                <small id="propertyHelp7" class="form-text text-muted">codeGenerationService</small>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
         <hr>
         <div class="row">
           <div class="col-xs-8">
@@ -67,6 +102,77 @@
           </div>
           <div class="col-xs-4">
             <button id="code" class="btn btn-lg upload-btn" type="button">Upload Property File</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <form>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput1" aria-describedby="propertyHelp1" placeholder="gitUser">
+                <small id="propertyHelp1" class="form-text text-muted">gitUser</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput2" aria-describedby="propertyHelp2" placeholder="gitUserMail">
+                <small id="propertyHelp2" class="form-text text-muted">gitUserMail</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput3" aria-describedby="propertyHelp3" placeholder="gitOrganization" value="CAE-Community-Application-Editor">
+                <small id="propertyHelp3" class="form-text text-muted">gitOrganization</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput4" aria-describedby="propertyHelp4" placeholder="templateRepository" value="CAE-Templates">
+                <small id="propertyHelp4" class="form-text text-muted">templateRepository</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput5" aria-describedby="propertyHelp5" placeholder="deploymentRepo" value="CAE-Deployment-Temp">
+                <small id="propertyHelp5" class="form-text text-muted">deploymentRepo</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput6" aria-describedby="propertyHelp6" placeholder="gitPassword">
+                <small id="propertyHelp6" class="form-text text-muted">gitPassword</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput7" aria-describedby="propertyHelp7" placeholder="useModelSynchronization" value="true">
+                <small id="propertyHelp7" class="form-text text-muted">useModelSynchronization</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput8" aria-describedby="propertyHelp8" placeholder="jenkinsUrl">
+                <small id="propertyHelp8" class="form-text text-muted">jenkinsUrl</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput9" aria-describedby="propertyHelp9" placeholder="jenkinsJobToken">
+                <small id="propertyHelp9" class="form-text text-muted">jenkinsJobToken</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput10" aria-describedby="propertyHelp10" placeholder="buildJobName">
+                <small id="propertyHelp10" class="form-text text-muted">buildJobName</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput11" aria-describedby="propertyHelp11" placeholder="dockerJobName">
+                <small id="propertyHelp11" class="form-text text-muted">dockerJobName</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput12" aria-describedby="propertyHelp12" placeholder="usedGitHost" value="GitHub">
+                <small id="propertyHelp12" class="form-text text-muted">usedGitHost</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput13" aria-describedby="propertyHelp13" placeholder="baseURL" value="https://github.com/">
+                <small id="propertyHelp13" class="form-text text-muted">baseURL</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput14" aria-describedby="propertyHelp14" placeholder="token">
+                <small id="propertyHelp14" class="form-text text-muted">token</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput15" aria-describedby="propertyHelp15" placeholder="widgetHomeBaseURL" value="http://cloud10.dbis.rwth-aachen.de:8088/">
+                <small id="propertyHelp15" class="form-text text-muted">widgetHomeBaseURL</small>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="propertyInput16" aria-describedby="propertyHelp16" placeholder="widgetHomeBaseURL" value="https://api.learning-layers.eu/o/oauth2">
+                <small id="propertyHelp16" class="form-text text-muted">widgetHomeBaseURL</small>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
           </div>
         </div>
         <hr>
