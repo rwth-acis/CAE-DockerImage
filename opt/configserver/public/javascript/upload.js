@@ -27,11 +27,10 @@ $('.stop-btn').on('click', function(){
   });
 });
 
-$('#modelPropertyFormSubmit').on('click', function() {
-  var formData = $( "#modelPropertyForm" ).serializeArray();
+var postForService = function(service, formData) {
   console.log(formData);
   $.ajax({
-    url: '/upload/model/detailed',
+    url: `/upload/${service}/detailed`,
     type: 'POST',
     data: JSON.stringify(formData),
     contentType: 'application/json',
@@ -39,6 +38,21 @@ $('#modelPropertyFormSubmit').on('click', function() {
       console.log("Success");
     }
   });
+};
+
+$('#modelPropertyFormSubmit').on('click', function() {
+  var formData = $( "#modelPropertyForm" ).serializeArray();
+  postForService("model",formData);
+});
+
+$('#codePropertyFormSubmit').on('click', function() {
+  var formData = $( "#codePropertyForm" ).serializeArray();
+  postForService("code",formData);
+});
+
+$('#webPropertyFormSubmit').on('click', function() {
+  var formData = $( "#webPropertyForm" ).serializeArray();
+  postForService("web",formData);
 });
 
 $('#upload-input').on('change', function(){
