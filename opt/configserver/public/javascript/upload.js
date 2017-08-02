@@ -27,6 +27,10 @@ $('.stop-btn').on('click', function(){
   });
 });
 
+$('#modelPropertyFormSubmit').on('click', function() {
+  console.log($( "#modelPropertyForm" ).serializeArray());
+});
+
 $('#upload-input').on('change', function(){
 
   var files = $(this).get(0).files;
