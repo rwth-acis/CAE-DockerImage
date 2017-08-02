@@ -28,7 +28,17 @@ $('.stop-btn').on('click', function(){
 });
 
 $('#modelPropertyFormSubmit').on('click', function() {
-  console.log($( "#modelPropertyForm" ).serializeArray());
+  var formData = $( "#modelPropertyForm" ).serializeArray();
+  console.log(formData);
+  $.ajax({
+    url: '/upload/model/detailed',
+    type: 'POST',
+    data: JSON.stringify(formData),
+    contentType: 'application/json',
+    success: function(data) {
+      console.log("Success");
+    }
+  });
 });
 
 $('#upload-input').on('change', function(){

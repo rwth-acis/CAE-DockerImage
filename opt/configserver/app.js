@@ -1,4 +1,5 @@
 var express = require('express');
+var bodyParser = require('body-parser')
 var app = express();
 var path = require('path');
 var formidable = require('formidable');
@@ -6,6 +7,7 @@ var fs = require('fs');
 var exec = require('child_process').exec;
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
 
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/index.html'));
@@ -50,6 +52,12 @@ app.post('/upload/:service', function(req, res) {
 
     form.parse(req);
 
+});
+
+app.post('/upload/:service/detailed', function(req, res) {
+    var service = req.params.service;
+    console.log(req.body);
+    res.sendStatus(200);
 });
 
 app.get('/restart/:service', function(req, res){
