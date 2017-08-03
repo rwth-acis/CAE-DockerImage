@@ -49,9 +49,7 @@ app.post('/upload/:service', function(req, res) {
     form.on('end', function() {
         res.end('success');
     });
-
     form.parse(req);
-
 });
 
 app.post('/upload/:service/detailed', function(req, res) {
@@ -68,18 +66,16 @@ app.get('/upload/:service/detailed', function(req, res) {
             console.log(err);
         }
         data = data.trim().split("\n");
-        var propertyArray = [];
+        var propertyDict = {};
         data.forEach(function(element) {
             var innerArr = element.split("=");
             console.log(innerArr);
             var key = innerArr[0].replace(/[\n\r]/g, '');
             var value = innerArr[1].replace(/[\n\r]/g, '').trim();
-            var dict = {};
-            dict[key] = value;
-            propertyArray.push(dict);
+            propertyDict[key] = value;
         }, this);
-        console.log(propertyArray);
-        return propertyArray;
+        console.log(propertyDict);
+        return propertyDict;
     };
 
     if (service === "model") {
