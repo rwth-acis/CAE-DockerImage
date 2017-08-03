@@ -60,6 +60,41 @@
             <button id="model" class="btn btn-lg upload-btn" type="button">Upload Property File</button>
           </div>
         </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <form id="modelPropertyForm">
+              <div class="form-group">
+                <input type="text" name="jdbcDriverClassName" class="form-control" id="propertyInput1" aria-describedby="propertyHelp1" placeholder="jdbcDriverClassName" >
+                <small id="propertyHelp1" class="form-text text-muted">jdbcDriverClassName</small>
+              </div>
+              <div class="form-group">
+                <input type="text" name="jdbcUrl" class="form-control" id="propertyInput2" aria-describedby="propertyHelp2" placeholder="jdbcUrl" >
+                <small id="propertyHelp2" class="form-text text-muted">jdbcUrl</small>
+              </div>
+              <div class="form-group">
+                <input type="text" name="jdbcSchema" class="form-control" id="propertyInput3" aria-describedby="propertyHelp3" placeholder="jdbcSchema" >
+                <small id="propertyHelp3" class="form-text text-muted">jdbcSchema</small>
+              </div>
+              <div class="form-group">
+                <input type="text" name="jdbcLogin" class="form-control" id="propertyInput4" aria-describedby="propertyHelp4" placeholder="jdbcLogin" >
+                <small id="propertyHelp4" class="form-text text-muted">jdbcLogin</small>
+              </div>
+              <div class="form-group">
+                <input type="text" name="jdbcPass" class="form-control" id="propertyInput5" aria-describedby="propertyHelp5" placeholder="jdbcPass" >
+                <small id="propertyHelp5" class="form-text text-muted">jdbcPass</small>
+              </div>
+              <div class="form-group">
+                <input type="text" name="semanticCheckService" class="form-control" id="propertyInput6" aria-describedby="propertyHelp6" placeholder="semanticCheckService">
+                <small id="propertyHelp6" class="form-text text-muted">semanticCheckService</small>
+              </div>
+              <div class="form-group">
+                <input type="text" name="codeGenerationService" class="form-control" id="propertyInput7" aria-describedby="propertyHelp7" placeholder="codeGenerationService" >
+                <small id="propertyHelp7" class="form-text text-muted">codeGenerationService</small>
+              </div>
+              <button id="modelPropertyFormSubmit" type="button" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
         <hr>
         <div class="row">
           <div class="col-xs-8">
@@ -69,6 +104,77 @@
             <button id="code" class="btn btn-lg upload-btn" type="button">Upload Property File</button>
           </div>
         </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <form id="codePropertyForm">
+              <div class="form-group">
+                <input name="gitUser" type="text" class="form-control" id="propertyInput1" aria-describedby="propertyHelp1" placeholder="gitUser">
+                <small id="propertyHelp1" class="form-text text-muted">gitUser</small>
+              </div>
+              <div class="form-group">
+                <input name="gitUserMail" type="text" class="form-control" id="propertyInput2" aria-describedby="propertyHelp2" placeholder="gitUserMail">
+                <small id="propertyHelp2" class="form-text text-muted">gitUserMail</small>
+              </div>
+              <div class="form-group">
+                <input name="gitOrganization" type="text" class="form-control" id="propertyInput3" aria-describedby="propertyHelp3" placeholder="gitOrganization" >
+                <small id="propertyHelp3" class="form-text text-muted">gitOrganization</small>
+              </div>
+              <div class="form-group">
+                <input name="templateRepository" type="text" class="form-control" id="propertyInput4" aria-describedby="propertyHelp4" placeholder="templateRepository" >
+                <small id="propertyHelp4" class="form-text text-muted">templateRepository</small>
+              </div>
+              <div class="form-group">
+                <input name="deploymentRepo" type="text" class="form-control" id="propertyInput5" aria-describedby="propertyHelp5" placeholder="deploymentRepo" >
+                <small id="propertyHelp5" class="form-text text-muted">deploymentRepo</small>
+              </div>
+              <div class="form-group">
+                <input name="gitPassword" type="text" class="form-control" id="propertyInput6" aria-describedby="propertyHelp6" placeholder="gitPassword">
+                <small id="propertyHelp6" class="form-text text-muted">gitPassword</small>
+              </div>
+              <div class="form-group">
+                <input name="useModelSynchronization" type="text" class="form-control" id="propertyInput7" aria-describedby="propertyHelp7" placeholder="useModelSynchronization" >
+                <small id="propertyHelp7" class="form-text text-muted">useModelSynchronization</small>
+              </div>
+              <div class="form-group">
+                <input name="jenkinsUrl" type="text" class="form-control" id="propertyInput8" aria-describedby="propertyHelp8" placeholder="jenkinsUrl">
+                <small id="propertyHelp8" class="form-text text-muted">jenkinsUrl</small>
+              </div>
+              <div class="form-group">
+                <input name="jenkinsJobToken" type="text" class="form-control" id="propertyInput9" aria-describedby="propertyHelp9" placeholder="jenkinsJobToken">
+                <small id="propertyHelp9" class="form-text text-muted">jenkinsJobToken</small>
+              </div>
+              <div class="form-group">
+                <input name="buildJobName" type="text" class="form-control" id="propertyInput10" aria-describedby="propertyHelp10" placeholder="buildJobName">
+                <small id="propertyHelp10" class="form-text text-muted">buildJobName</small>
+              </div>
+              <div class="form-group">
+                <input name="dockerJobName" type="text" class="form-control" id="propertyInput11" aria-describedby="propertyHelp11" placeholder="dockerJobName">
+                <small id="propertyHelp11" class="form-text text-muted">dockerJobName</small>
+              </div>
+              <div class="form-group">
+                <input name="usedGitHost" type="text" class="form-control" id="propertyInput12" aria-describedby="propertyHelp12" placeholder="usedGitHost" >
+                <small id="propertyHelp12" class="form-text text-muted">usedGitHost</small>
+              </div>
+              <div class="form-group">
+                <input name="baseURL" type="text" class="form-control" id="propertyInput13" aria-describedby="propertyHelp13" placeholder="baseURL" >
+                <small id="propertyHelp13" class="form-text text-muted">baseURL</small>
+              </div>
+              <div class="form-group">
+                <input name="token" type="text" class="form-control" id="propertyInput14" aria-describedby="propertyHelp14" placeholder="token">
+                <small id="propertyHelp14" class="form-text text-muted">token</small>
+              </div>
+              <div class="form-group">
+                <input name="widgetHomeBaseURL" type="text" class="form-control" id="propertyInput15" aria-describedby="propertyHelp15" placeholder="widgetHomeBaseURL" >
+                <small id="propertyHelp15" class="form-text text-muted">widgetHomeBaseURL</small>
+              </div>
+              <div class="form-group">
+                <input name="oidcProvider" type="text" class="form-control" id="propertyInput16" aria-describedby="propertyHelp16" placeholder="oidcProvider" >
+                <small id="propertyHelp16" class="form-text text-muted">oidcProvider</small>
+              </div>
+              <button id="codePropertyFormSubmit" type="button" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
         <hr>
         <div class="row">
           <div class="col-xs-8">
@@ -76,6 +182,69 @@
           </div>
           <div class="col-xs-4">
             <button id="web" class="btn btn-lg upload-btn" type="button">Upload Property File</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <form id="webPropertyForm">
+              <div class="form-group">
+                <input name="httpPort" type="text" class="form-control" id="propertyInput1" aria-describedby="propertyHelp1" placeholder="httpPort" >
+                <small id="propertyHelp1" class="form-text text-muted">httpPort</small>
+              </div>
+              <div class="form-group">
+                <input name="httpsPort" type="text" class="form-control" id="propertyInput2" aria-describedby="propertyHelp2" placeholder="httpsPort" >
+                <small id="propertyHelp2" class="form-text text-muted">httpsPort</small>
+              </div>
+              <div class="form-group">
+                <input name="startHttp" type="text" class="form-control" id="propertyInput3" aria-describedby="propertyHelp3" placeholder="startHttp" >
+                <small id="propertyHelp3" class="form-text text-muted">startHttp</small>
+              </div>
+              <div class="form-group">
+                <input name="startHttps" type="text" class="form-control" id="propertyInput4" aria-describedby="propertyHelp4" placeholder="startHttps" >
+                <small id="propertyHelp4" class="form-text text-muted">startHttps</small>
+              </div>
+              <div class="form-group">
+                <input name="sslKeystore" type="text" class="form-control" id="propertyInput5" aria-describedby="propertyHelp5" placeholder="sslKeystore" >
+                <small id="propertyHelp5" class="form-text text-muted">sslKeystore</small>
+              </div>
+              <div class="form-group">
+                <input name="sslKeyPassword" type="text" class="form-control" id="propertyInput6" aria-describedby="propertyHelp6" placeholder="sslKeyPassword" >
+                <small id="propertyHelp6" class="form-text text-muted">sslKeyPassword</small>
+              </div>
+              <div class="form-group">
+                <input name="crossOriginResourceDomain" type="text" class="form-control" id="propertyInput7" aria-describedby="propertyHelp7" placeholder="crossOriginResourceDomain" >
+                <small id="propertyHelp7" class="form-text text-muted">crossOriginResourceDomain</small>
+              </div>
+              <div class="form-group">
+                <input name="crossOriginResourceMaxAge" type="text" class="form-control" id="propertyInput8" aria-describedby="propertyHelp8" placeholder="crossOriginResourceMaxAge" >
+                <small id="propertyHelp8" class="form-text text-muted">crossOriginResourceMaxAge</small>
+              </div>
+              <div class="form-group">
+                <input name="enableCrossOriginResourceSharing" type="text" class="form-control" id="propertyInput9" aria-describedby="propertyHelp9" placeholder="enableCrossOriginResourceSharing" >
+                <small id="propertyHelp9" class="form-text text-muted">enableCrossOriginResourceSharing</small>
+              </div>
+              <div class="form-group">
+                <input name="preferLocalServices" type="text" class="form-control" id="propertyInput10" aria-describedby="propertyHelp10" placeholder="preferLocalServices" >
+                <small id="propertyHelp10" class="form-text text-muted">preferLocalServices</small>
+              </div>
+              <div class="form-group">
+                <input name="xmlPath" type="text" class="form-control" id="propertyInput11" aria-describedby="propertyHelp11" placeholder="xmlPath">
+                <small id="propertyHelp11" class="form-text text-muted">xmlPath</small>
+              </div>
+              <div class="form-group">
+                <input name="defaultLoginUser" type="text" class="form-control" id="propertyInput12" aria-describedby="propertyHelp12" placeholder="defaultLoginUser" >
+                <small id="propertyHelp12" class="form-text text-muted">defaultLoginUser</small>
+              </div>
+              <div class="form-group">
+                <input name="defaultLoginPassword" type="text" class="form-control" id="propertyInput13" aria-describedby="propertyHelp13" placeholder="defaultLoginPassword" >
+                <small id="propertyHelp13" class="form-text text-muted">defaultLoginPassword</small>
+              </div>
+              <div class="form-group">
+                <input name="oidcProviders" type="text" class="form-control" id="propertyInput14" aria-describedby="propertyHelp14" placeholder="oidcProviders" >
+                <small id="propertyHelp14" class="form-text text-muted">oidcProviders</small>
+              </div>
+              <button id="webPropertyFormSubmit" type="button" class="btn btn-primary">Submit</button>
+            </form>
           </div>
         </div>
 
