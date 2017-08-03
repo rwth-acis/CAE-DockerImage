@@ -94,27 +94,20 @@ app.get('/upload/:service/detailed', function(req, res) {
         return propertyDict;
     };
 
+    var path = "";
     if (service === "model") {
-        fs.readFile('/CAE/etc/i5.las2peer.services.modelPersistenceService.ModelPersistenceService.properties', 'utf-8' ,(err, data) => {
-            var result = readContent(err, data);
-            res.setHeader('Content-Type', 'application/json');
-            res.send(JSON.stringify(result));
-        });
-    } else if (service === "code") {
-        fs.readFile('/CAE/etc/i5.las2peer.services.codeGenerationService.CodeGenerationService.properties', 'utf-8', (err, data) => {
-            var result = readContent(err, data);
-            res.setHeader('Content-Type', 'application/json');
-            res.send(JSON.stringify(result));
-        });
-    } else if (service === "web") {
-        fs.readFile('/CAE/etc/i5.las2peer.webConnector.WebConnector.properties', 'utf-8', (err, data) => {
-            var result = readContent(err, data);
-            res.setHeader('Content-Type', 'application/json');
-            res.send(JSON.stringify(result));
-        });
+        path = '/CAE/etc/i5.las2peer.services.modelPersistenceService.ModelPersistenceService.properties'
+    }   else if (service === "code") {
+        path = '/CAE/etc/i5.las2peer.services.codeGenerationService.CodeGenerationService.properties';
+    }   else if (service === "web") {
+        path = '/CAE/etc/i5.las2peer.webConnector.WebConnector.properties';
     }
-    //res.sendStatus(200);
-});
+    fs.readFile(path, 'utf-8' ,(err, data) => {
+        var result = readContent(err, data);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(result));
+    });   
+})
 
 app.get('/restart/:service', function(req, res){
     var service = req.params.service;
