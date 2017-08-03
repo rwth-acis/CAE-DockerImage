@@ -60,6 +60,50 @@ app.post('/upload/:service/detailed', function(req, res) {
     res.sendStatus(200);
 });
 
+app.get('/upload/:service/detailed', function(req, res) {
+    var service = req.params.service;
+    
+    var readContent = function(err, data){
+        if (err) {
+            console.log(err);
+        }
+        data = data.trim().split("\n");
+        var propertyArray = [];
+        data.forEach(function(element) {
+            var innerArr = element.split("=");
+            console.log(innerArr);
+            var key = innerArr[0].replace(/[\n\r]/g, '');
+            var value = innerArr[1].replace(/[\n\r]/g, '').trim();
+            var dict = {};
+            dict[key] = value;
+            propertyArray.push(dict);
+        }, this);
+        console.log(propertyArray);
+        return propertyArray;
+    };
+
+    if (service === "model") {
+        fs.readFile('/CAE/etc/i5.las2peer.services.modelPersistenceService.ModelPersistenceService.properties', 'utf-8' ,(err, data) => {
+            var result = readContent(err, data);
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify(result));
+        });
+    } else if (service === "code") {
+        fs.readFile('/CAE/etc/i5.las2peer.services.codeGenerationService.CodeGenerationService.properties', 'utf-8', (err, data) => {
+            var result = readContent(err, data);
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify(result));
+        });
+    } else if (service === "web") {
+        fs.readFile('/CAE/etc/i5.las2peer.webConnector.WebConnector.properties', 'utf-8', (err, data) => {
+            var result = readContent(err, data);
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify(result));
+        });
+    }
+    //res.sendStatus(200);
+});
+
 app.get('/restart/:service', function(req, res){
     var service = req.params.service;
 
