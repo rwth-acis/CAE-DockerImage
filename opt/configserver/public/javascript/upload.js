@@ -1,5 +1,41 @@
 var service;
 
+var postForService = function(service, formData) {
+  console.log(formData);
+  $.ajax({
+    url: `/upload/${service}/detailed`,
+    type: 'POST',
+    data: JSON.stringify(formData),
+    contentType: 'application/json',
+    success: function(data) {
+      console.log("Success");
+    }
+  });
+};
+
+var getForService = function(service) {
+  $.ajax({
+    url: `/upload/${service}/detailed`,
+    type: 'GET',
+    success: function(data) {
+      $("input[type='text']").each(function(){
+        var name = $(this).attr('name');
+        if(name != "" || name != undefined){
+          var content = data[name];
+          if(content != "" && content != undefined)
+            $(this).val(content);
+        }          
+      });
+    }
+  });
+};
+
+$( document ).ready(function(){
+  getForService("model");
+  getForService("code");
+  getForService("web");
+}); 
+
 $('.upload-btn').on('click', function (){
     $('#upload-input').click();
     service = this.id;
@@ -26,19 +62,6 @@ $('.stop-btn').on('click', function(){
     }
   });
 });
-
-var postForService = function(service, formData) {
-  console.log(formData);
-  $.ajax({
-    url: `/upload/${service}/detailed`,
-    type: 'POST',
-    data: JSON.stringify(formData),
-    contentType: 'application/json',
-    success: function(data) {
-      console.log("Success");
-    }
-  });
-};
 
 $('#modelPropertyFormSubmit').on('click', function() {
   var formData = $( "#modelPropertyForm" ).serializeArray();

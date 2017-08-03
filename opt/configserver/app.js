@@ -69,8 +69,8 @@ app.get('/upload/:service/detailed', function(req, res) {
         var propertyDict = {};
         data.forEach(function(element) {
             var innerArr = element.split("=");
-            console.log(innerArr);
-            var key = innerArr[0].replace(/[\n\r]/g, '');
+            //console.log(innerArr);
+            var key = innerArr[0].replace(/[\n\r]/g, '').trim();
             var value = innerArr[1].replace(/[\n\r]/g, '').trim();
             propertyDict[key] = value;
         }, this);
