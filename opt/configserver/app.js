@@ -54,8 +54,24 @@ app.post('/upload/:service', function(req, res) {
 
 app.post('/upload/:service/detailed', function(req, res) {
     var service = req.params.service;
-    console.log(req.body);
-    res.sendStatus(200);
+    var path = "";
+    if (service === "model") {
+        path = '/CAE/etc/i5.las2peer.services.modelPersistenceService.ModelPersistenceService.properties'
+    }   else if (service === "code") {
+        path = '/CAE/etc/i5.las2peer.services.codeGenerationService.CodeGenerationService.properties';
+    }   else if (service === "web") {
+        path = '/CAE/etc/i5.las2peer.webConnector.WebConnector.properties';
+    }
+
+    fs.truncate(path, 0, function() {
+            var content = "";
+            req.body.forEach(function(element) {
+                content += (element["name"] + "=" + element["value"] + "\r\n");              
+            }, this);
+            fs.writeFile(path, content, function() {
+                    res.sendStatus(200);
+            });
+        });
 });
 
 app.get('/upload/:service/detailed', function(req, res) {
