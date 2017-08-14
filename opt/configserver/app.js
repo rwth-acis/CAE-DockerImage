@@ -80,6 +80,7 @@ app.get('/upload/:service/detailed', function(req, res) {
     var readContent = function(err, data){
         if (err) {
             console.log(err);
+            return null;
         }
         data = data.trim().split("\n");
         var propertyDict = {};
