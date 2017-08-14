@@ -66,6 +66,7 @@ RUN cd source && \
   	git clone https://github.com/rwth-acis/CAE-Model-Persistence-Service.git && \
  	git clone https://github.com/rwth-acis/CAE-Code-Generation-Service.git && \
   	git clone https://github.com/rwth-acis/CAE-Frontend.git && \
+	git clone https://github.com/rwth-acis/syncmeta.git && \
  	cd CAE-Model-Persistence-Service && \
 	git checkout tags/v0.6.7.1 -b localBuildBranch && \
  	ant jar && \
@@ -81,6 +82,12 @@ RUN cd source && \
  	cp service/*.jar /CAE/lib/ && \
 	cp lib/*.jar /CAE/lib/ && \
 	cp etc/i5.las2peer.services.codeGenerationService.CodeGenerationService.properties /CAE/etc/ && \
+	cd ../syncmeta && \
+	npm install && \
+	bower install --allow-root && \
+	cp .localGruntConfig.json.sample .localGruntConfig.json && \
+	cp .dbis.secret.json.sample .dbis.secret.json && \
+	grunt build && \
 	cd ../CAE-Frontend
 ########################
 
@@ -88,7 +95,8 @@ RUN cd source && \
 COPY opt /opt
 
 RUN chmod +x /opt/cae/deployment.sh && \
-	chmod +x /opt/startup.sh
+	chmod +x /opt/startup.sh && \
+	chmod +x /opt/syncmeta/start.sh
 
 # Copy supervisor config
 COPY configs /etc/supervisor/conf.d
