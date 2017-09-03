@@ -67,6 +67,10 @@ RUN cd source && \
  	git clone https://github.com/rwth-acis/CAE-Code-Generation-Service.git && \
   	git clone https://github.com/rwth-acis/CAE-Frontend.git && \
 	git clone https://github.com/rwth-acis/syncmeta.git && \
+	git clone https://github.com/rwth-acis/RoleApiJS.git && \
+	cd RoleApiJS && \
+	git checkout develop && \
+	cd .. && \
  	cd CAE-Model-Persistence-Service && \
 	git checkout tags/v0.6.7.1 -b localBuildBranch && \
  	ant jar && \
@@ -98,6 +102,12 @@ RUN chmod +x /opt/cae/deployment.sh && \
 	chmod +x /opt/startup.sh && \
 	chmod +x /opt/syncmeta/start.sh
 
+RUN cd /source/RoleApiJS/ && \
+	npm install . && \
+	npm run buildNode && \
+	npm link && \
+	cd /opt/configserver && \
+	npm link roleapijs
 # Copy supervisor config
 COPY configs /etc/supervisor/conf.d
 
