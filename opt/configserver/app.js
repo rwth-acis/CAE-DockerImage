@@ -5,6 +5,7 @@ var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
 var exec = require('child_process').exec;
+var roleApi = require('roleapijs')
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
@@ -32,6 +33,11 @@ app.get('/status', function(req, res) {
         res.json({ content: statArr });
     }
     exec("supervisorctl status", puts);
+});
+
+app.get('/generateSpaces/:auth', function(req, res) {
+    var auth = req.params.auth;
+    console.log(auth);
 });
 
 app.post('/upload/:service', function(req, res) {
