@@ -70,6 +70,8 @@ RUN cd source && \
 	git clone https://github.com/rwth-acis/RoleApiJS.git && \
 	cd RoleApiJS && \
 	git checkout develop && \
+	npm install && \
+	npm run buildNode && \
 	cd .. && \
  	cd CAE-Model-Persistence-Service && \
 	git checkout tags/v0.6.7.1 -b localBuildBranch && \
@@ -97,17 +99,14 @@ RUN cd source && \
 
 # Add default appliction structure and deployment script
 COPY opt /opt
+RUN cd /opt/configserver && \
+	npm install && \
+	cp /source/RoleApiJS/lib/roleApiJS.js roleApiJS.js
 
 RUN chmod +x /opt/cae/deployment.sh && \
 	chmod +x /opt/startup.sh && \
 	chmod +x /opt/syncmeta/start.sh
 
-RUN cd /source/RoleApiJS/ && \
-	npm install . && \
-	npm run buildNode && \
-	npm link && \
-	cd /opt/configserver && \
-	npm link roleapijs
 # Copy supervisor config
 COPY configs /etc/supervisor/conf.d
 

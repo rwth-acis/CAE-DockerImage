@@ -5,7 +5,7 @@ var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
 var exec = require('child_process').exec;
-var roleApi = require('roleapijs')
+var roleApi = require('./roleApiJS.js');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
@@ -37,6 +37,32 @@ app.get('/status', function(req, res) {
 
 app.get('/generateSpaces/:auth', function(req, res) {
     var auth = req.params.auth;
+    var api = new roleApi("http://127.0.0.1:8073/",auth)
+
+    //CAEMicroservice
+    console.log("Creating microservice space")
+    api.createSpace("CAEMicroservice")
+    api.addWidgetToSpace("CAEMicroservice","","http://localhost:8081/widget.xml")
+    api.addWidgetToSpace("CAEMicroservice","","http://localhost:8081/attribute.xml")
+    api.addWidgetToSpace("CAEMicroservice","","http://localhost:8081/activity.xml")
+    api.addWidgetToSpace("CAEMicroservice","","http://localhost:8081/palette.xml")
+    //TODO: CAE Frontend parts
+    
+
+    //CAEFrontend
+    console.log("Creating frontend space")
+    api.createSpace("CAEFrontend")
+    api.addWidgetToSpace("CAEFrontend","","http://localhost:8081/widget.xml")
+    api.addWidgetToSpace("CAEFrontend","","http://localhost:8081/attribute.xml")
+    api.addWidgetToSpace("CAEFrontend","","http://localhost:8081/activity.xml")
+    api.addWidgetToSpace("CAEFrontend","","http://localhost:8081/palette.xml")
+
+
+    //CAEApplication
+    console.log("Creating application space")
+    api.createSpace("CAEApplication")
+    api.addWidgetToSpace("CAEApplication","","http://localhost:8081/widget.xml")
+
     console.log(auth);
 });
 

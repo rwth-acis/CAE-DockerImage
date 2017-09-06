@@ -36,13 +36,14 @@ $( document ).ready(function(){
   getForService("web");
 }); 
 
-$('.role-btn').on('click', function () {
+$('#role').on('click', function () {
   auth = $("input[name=authToken]").val();
+  console.log(auth)
   $.ajax({
     url: '/generateSpaces/' + auth,
     type: 'GET',
     success: function(data){
-
+      alert("Generating");
     }
   })
 });

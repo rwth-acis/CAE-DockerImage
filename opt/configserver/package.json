@@ -12,7 +12,6 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "formidable": "^1.1.1",
-    "roleapijs": "1.0.0"
+    "formidable": "^1.1.1"
   }
 }
