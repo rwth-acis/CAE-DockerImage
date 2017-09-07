@@ -94,7 +94,11 @@ RUN cd source && \
 	cp .localGruntConfig.json.sample .localGruntConfig.json && \
 	cp .dbis.secret.json.sample .dbis.secret.json && \
 	grunt build && \
-	cd ../CAE-Frontend
+	cd ../CAE-Frontend/widgets && \
+	bower install --allow-root && \
+	npm install && \
+	cp src/liveCodeEditorWidget/lib/config.js.sample src/liveCodeEditorWidget/lib/config.js && \
+	grunt --yjsserver="http://localhost:1234"
 ########################
 
 # Add default appliction structure and deployment script
@@ -105,7 +109,8 @@ RUN cd /opt/configserver && \
 
 RUN chmod +x /opt/cae/deployment.sh && \
 	chmod +x /opt/startup.sh && \
-	chmod +x /opt/syncmeta/start.sh
+	chmod +x /opt/syncmeta/start.sh && \
+	chmod +x /opt/caefrontend/start.sh
 
 # Copy supervisor config
 COPY configs /etc/supervisor/conf.d
