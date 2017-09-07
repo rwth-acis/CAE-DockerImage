@@ -3,8 +3,10 @@ This repository contains the dockerfile and scripts needed for the CAE docker im
 
 The following ports are EXPOSEd:
 * 1234 - y-js websocket server
+* 3000 - Dashboard
 * 8073 - ROLE
 * 8080 - webconnector for the CAE
+* 8081 - Syncmeta Widgets
 
 Bind these ports as you wish or use automatic binding.
 
