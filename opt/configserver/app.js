@@ -41,29 +41,43 @@ app.get('/generateSpaces/:auth', function(req, res) {
 
     //CAEMicroservice
     console.log("Creating microservice space")
-    api.createSpace("CAEMicroservice")
-    api.addWidgetToSpace("CAEMicroservice","","http://localhost:8081/widget.xml")
-    api.addWidgetToSpace("CAEMicroservice","","http://localhost:8081/attribute.xml")
-    api.addWidgetToSpace("CAEMicroservice","","http://localhost:8081/activity.xml")
-    api.addWidgetToSpace("CAEMicroservice","","http://localhost:8081/palette.xml")
+    api.createSpace("CAEMicroservice").then((res)=> {
+        api.addWidgetToSpace("CAEMicroservice","","http://localhost:8081/widget.xml")
+        api.addWidgetToSpace("CAEMicroservice","","http://localhost:8081/attribute.xml")
+        api.addWidgetToSpace("CAEMicroservice","","http://localhost:8081/activity.xml")
+        api.addWidgetToSpace("CAEMicroservice","","http://localhost:8081/palette.xml")
+    })
+    .catch((err) => {
+        res.sendStatus(500);
+    });
+    
     //TODO: CAE Frontend parts
     
 
     //CAEFrontend
     console.log("Creating frontend space")
-    api.createSpace("CAEFrontend")
-    api.addWidgetToSpace("CAEFrontend","","http://localhost:8081/widget.xml")
-    api.addWidgetToSpace("CAEFrontend","","http://localhost:8081/attribute.xml")
-    api.addWidgetToSpace("CAEFrontend","","http://localhost:8081/activity.xml")
-    api.addWidgetToSpace("CAEFrontend","","http://localhost:8081/palette.xml")
+    api.createSpace("CAEFrontend").then((res) => {
+        api.addWidgetToSpace("CAEFrontend","","http://localhost:8081/widget.xml")
+        api.addWidgetToSpace("CAEFrontend","","http://localhost:8081/attribute.xml")
+        api.addWidgetToSpace("CAEFrontend","","http://localhost:8081/activity.xml")
+        api.addWidgetToSpace("CAEFrontend","","http://localhost:8081/palette.xml")
+    })
+    .catch((err) => {
+        res.sendStatus(500);
+    });;
 
 
     //CAEApplication
     console.log("Creating application space")
-    api.createSpace("CAEApplication")
-    api.addWidgetToSpace("CAEApplication","","http://localhost:8081/widget.xml")
+    api.createSpace("CAEApplication").then((res) => {
+        api.addWidgetToSpace("CAEApplication","","http://localhost:8081/widget.xml")
+    })
+    .catch((err) => {
+        res.sendStatus(500);
+    });;
 
     console.log(auth);
+    res.sendStatus(200);
 });
 
 app.post('/upload/:service', function(req, res) {
@@ -123,7 +137,7 @@ app.get('/upload/:service/detailed', function(req, res) {
             var value = innerArr[1].replace(/[\n\r]/g, '').trim();
             propertyDict[key] = value;
         }, this);
-        console.log(propertyDict);
+        //console.log(propertyDict);
         return propertyDict;
     };
 
