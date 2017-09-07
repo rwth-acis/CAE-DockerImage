@@ -110,8 +110,8 @@ RUN chmod +x /opt/cae/deployment.sh && \
 # Copy supervisor config
 COPY configs /etc/supervisor/conf.d
 
-#debug and control server
-EXPOSE 80
+#Dashboard
+EXPOSE 3000
 #ROLE
 EXPOSE 8073
 #y-js websocket server
