@@ -36,6 +36,18 @@ $( document ).ready(function(){
   getForService("web");
 }); 
 
+$('#role').on('click', function () {
+  auth = $("input[name=authToken]").val();
+  console.log(auth)
+  $.ajax({
+    url: '/generateSpaces/' + auth,
+    type: 'GET',
+    success: function(data){
+      alert("Generating");
+    }
+  })
+});
+
 $('.upload-btn').on('click', function (){
     $('#upload-input').click();
     service = this.id;

@@ -67,6 +67,12 @@ RUN cd source && \
  	git clone https://github.com/rwth-acis/CAE-Code-Generation-Service.git && \
   	git clone https://github.com/rwth-acis/CAE-Frontend.git && \
 	git clone https://github.com/rwth-acis/syncmeta.git && \
+	git clone https://github.com/rwth-acis/RoleApiJS.git && \
+	cd RoleApiJS && \
+	git checkout develop && \
+	npm install && \
+	npm run buildNode && \
+	cd .. && \
  	cd CAE-Model-Persistence-Service && \
 	git checkout tags/v0.6.7.1 -b localBuildBranch && \
  	ant jar && \
@@ -93,6 +99,9 @@ RUN cd source && \
 
 # Add default appliction structure and deployment script
 COPY opt /opt
+RUN cd /opt/configserver && \
+	npm install && \
+	cp /source/RoleApiJS/lib/roleApiJS.js roleApiJS.js
 
 RUN chmod +x /opt/cae/deployment.sh && \
 	chmod +x /opt/startup.sh && \
