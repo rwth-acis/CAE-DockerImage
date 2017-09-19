@@ -4,6 +4,7 @@ This repository contains the dockerfile and scripts needed for the CAE docker im
 The following ports are EXPOSEd:
 * 1234 - y-js websocket server
 * 3000 - Dashboard
+* 8001 - CAE Frontend
 * 8073 - ROLE
 * 8080 - webconnector for the CAE
 * 8081 - Syncmeta Widgets
@@ -28,7 +29,7 @@ docker port cae
 
 To specify the port bindings yourself, use the -p flag, in this example we map container ports to their host counterpart:
 ```shell
-docker run -d -p 1234:1234 -p 8073:8073 -p 8080:8080 -p 3000:3000 --name cae cae
+docker run -d -p 1234:1234 -p 8073:8073 -p 8080:8080 -p 3000:3000 -p 8081:8081 -p 8001:8001 --name cae cae
 ```
 
 There is a dashboard service running on port 3000 that provides status information on the other services and provides a way to upload property files for them.
