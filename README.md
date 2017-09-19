@@ -20,7 +20,7 @@ To run the image detached without specifying port bindings yourself use
 ```shell
 docker run -d -P --name cae cae
 ```
-You can now see what ports where assigned to the one's listed as exposed in the dockerfile by running
+You can now see what ports were assigned to the one's listed as exposed in the dockerfile by running
 ```shell
 docker port cae
 ```
