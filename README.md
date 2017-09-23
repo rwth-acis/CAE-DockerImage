@@ -17,6 +17,16 @@ Checkout the repository, change your directory into it and build it just like yo
 docker build -t cae .
 ```
 ## Running the image (TBC)
+To specify the port bindings yourself, use the -p flag, in this example we map container ports to their host counterpart:
+```shell
+docker run -d -p 1234:1234 -p 8073:8073 -p 8080:8080 -p 3000:3000 -p 8081:8081 -p 8001:8001 --name cae cae
+```
+This will run the container detached. To run the image in a container that will delete itself after running for easy experimentation without cleanup and to automatically open a command prompt in it use:
+```shell
+docker run -it --rm 1234:1234 -p 8073:8073 -p 8080:8080 -p 3000:3000 -p 8081:8081 -p 8001:8001 --name cae cae
+```
+
+
 To run the image detached without specifying port bindings yourself use
 ```shell
 docker run -d -P --name cae cae
@@ -26,10 +36,5 @@ You can now see what ports were assigned to the one's listed as exposed in the d
 docker port cae
 ```
 (Note: This doesn't seem to work with ROLE at the moment. Specifying the port bindings yourself is recommended)
-
-To specify the port bindings yourself, use the -p flag, in this example we map container ports to their host counterpart:
-```shell
-docker run -d -p 1234:1234 -p 8073:8073 -p 8080:8080 -p 3000:3000 -p 8081:8081 -p 8001:8001 --name cae cae
-```
 
 There is a dashboard service running on port 3000 that provides status information on the other services and provides a way to upload property files for them.
