@@ -61,11 +61,24 @@ RUN mkdir CAE && \
 	mkdir CAE/service && \
     mkdir web
 
+RUN apt-get update && \
+	apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common && \
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
+	add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") $(lsb_release -cs) stable" && \
+	apt-get update && \
+	apt-get install -y docker-ce
+
+COPY opt /opt
+
 ###### Jenkins #########
 RUN cd / && \
 	mkdir DockerJenkins && \
 	cd DockerJenkins/ && \
-	wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
+	wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war && \
+	mkdir /root/.jenkins && \
+	touch /root/.jenkins/jenkins.install.InstallUtil.lastExecVersion && \
+	echo "2.0" >> /root/.jenkins/jenkins.install.InstallUtil.lastExecVersion && \
+	cp /opt/jenkins/configs/config.xml /root/.jenkins/
 
 ######## CAE ###########
 RUN cd source && \
@@ -108,7 +121,6 @@ RUN cd source && \
 ########################
 
 # Add default appliction structure and deployment script
-COPY opt /opt
 RUN cd /opt/configserver && \
 	npm install && \
 	cp /source/RoleApiJS/lib/roleApiJS.js roleApiJS.js
