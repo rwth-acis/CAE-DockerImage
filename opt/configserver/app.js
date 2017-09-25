@@ -7,6 +7,8 @@ var fs = require('fs');
 var exec = require('child_process').exec;
 var roleApi = require('./roleApiJS.js');
 
+var token;
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
@@ -179,6 +181,17 @@ app.get('/stop/:service', function(req, res) {
     }
 
     exec(`supervisorctl stop ${service}`, puts);
+});
+
+app.get('/savetoken/:auth', function(req, res){
+    token = req.params.auth;
+    res.sendStatus(200);
+});
+
+app.get('/gettoken', function(req, res){
+    if(token) {
+        res.send(token);
+    }
 });
 
 var server = app.listen(3000, function(){
