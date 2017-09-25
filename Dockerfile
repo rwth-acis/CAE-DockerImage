@@ -69,21 +69,22 @@ RUN cd / && \
 	cp /opt/jenkins/configs/config.xml /root/.jenkins/
 
 ######### ROLE ##########
-RUN mkdir source && \
-	mkdir ROLE && \
-	cd source && \
-	git clone https://github.com/rwth-acis/ROLE-SDK.git && \
-	cd ROLE-SDK && \
+#RUN mkdir source && \
+#	mkdir ROLE && \
+#	cd source && \
+#	git clone https://github.com/rwth-acis/ROLE-SDK.git && \
+#	cd ROLE-SDK && \
 	#git checkout tags/v10.2 -b localBuildBranch && \
-	git checkout develop  && \
-	mvn clean package && \
-	cp assembly/target/role-m10-sdk.tar.gz /ROLE/role.tar.gz && \
-	cd /ROLE && \
-	tar -xzf role.tar.gz && \
-	rm role.tar.gz
+#	git checkout develop  && \
+#	mvn clean package && \
+#	cp assembly/target/role-m10-sdk.tar.gz /ROLE/role.tar.gz && \
+#	cd /ROLE && \
+#	tar -xzf role.tar.gz && \
+#	rm role.tar.gz
 
 ######## CAE ###########
-RUN cd source && \
+RUN mkdir source && \
+	cd source && \
   	git clone https://github.com/rwth-acis/CAE-Model-Persistence-Service.git && \
  	git clone https://github.com/rwth-acis/CAE-Code-Generation-Service.git && \
   	git clone https://github.com/rwth-acis/CAE-Frontend.git && \
@@ -121,6 +122,12 @@ RUN cd source && \
 	cp src/liveCodeEditorWidget/lib/config.js.sample src/liveCodeEditorWidget/lib/config.js && \
 	grunt --yjsserver="http://localhost:1234"
 ########################
+
+COPY role-m10-sdk.tar.gz /ROLE/role.tar.gz
+
+RUN cd /ROLE && \
+	tar -xzf role.tar.gz && \
+	rm role.tar.gz
 
 # Add default appliction structure and deployment script
 RUN cd /opt/configserver && \

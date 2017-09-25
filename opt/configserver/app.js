@@ -191,6 +191,8 @@ app.get('/savetoken/:auth', function(req, res){
 app.get('/gettoken', function(req, res){
     if(token) {
         res.send(token);
+    } else {
+        res.send("Error");
     }
 });
 
