@@ -47,7 +47,8 @@ RUN mkdir source && \
 	cd source && \
 	git clone https://github.com/rwth-acis/ROLE-SDK.git && \
 	cd ROLE-SDK && \
-	git checkout tags/v10.2 -b localBuildBranch && \
+	#git checkout tags/v10.2 -b localBuildBranch && \
+	git checkout develop -b localBuildBranch
 	mvn clean package && \
 	cp assembly/target/role-m10-sdk.tar.gz /ROLE/role.tar.gz && \
 	cd /ROLE && \
