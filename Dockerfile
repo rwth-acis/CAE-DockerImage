@@ -61,6 +61,12 @@ RUN mkdir CAE && \
 	mkdir CAE/service && \
     mkdir web
 
+###### Jenkins #########
+RUN cd / && \
+	mkdir DockerJenkins && \
+	cd DockerJenkins/ && \
+	wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
+
 ######## CAE ###########
 RUN cd source && \
   	git clone https://github.com/rwth-acis/CAE-Model-Persistence-Service.git && \
@@ -110,7 +116,8 @@ RUN cd /opt/configserver && \
 RUN chmod +x /opt/cae/deployment.sh && \
 	chmod +x /opt/startup.sh && \
 	chmod +x /opt/syncmeta/start.sh && \
-	chmod +x /opt/caefrontend/start.sh
+	chmod +x /opt/caefrontend/start.sh && \
+	chmod +x /opt/jenkins/start.sh
 
 # Copy supervisor config
 COPY configs /etc/supervisor/conf.d
