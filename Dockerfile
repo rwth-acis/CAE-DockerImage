@@ -40,20 +40,6 @@ COPY mysql.cnf /etc/mysql/my.cnf
 COPY mysqld_charset.cnf /etc/mysql/mysqld_charset.cnf
 
 RUN mysql_install_db > /dev/null 2>&1
-
-# ######## ROLE ##########
-RUN mkdir source && \
-	mkdir ROLE && \
-	cd source && \
-	git clone https://github.com/rwth-acis/ROLE-SDK.git && \
-	cd ROLE-SDK && \
-	#git checkout tags/v10.2 -b localBuildBranch && \
-	git checkout develop -b localBuildBranch
-	mvn clean package && \
-	cp assembly/target/role-m10-sdk.tar.gz /ROLE/role.tar.gz && \
-	cd /ROLE && \
-	tar -xzf role.tar.gz && \
-	rm role.tar.gz
 	
 #Create file structure
 RUN mkdir CAE && \
@@ -62,6 +48,7 @@ RUN mkdir CAE && \
 	mkdir CAE/service && \
     mkdir web
 
+###### Docker #########
 RUN apt-get update && \
 	apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common && \
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
@@ -80,6 +67,20 @@ RUN cd / && \
 	touch /root/.jenkins/jenkins.install.InstallUtil.lastExecVersion && \
 	echo "2.0" >> /root/.jenkins/jenkins.install.InstallUtil.lastExecVersion && \
 	cp /opt/jenkins/configs/config.xml /root/.jenkins/
+
+######### ROLE ##########
+RUN mkdir source && \
+	mkdir ROLE && \
+	cd source && \
+	git clone https://github.com/rwth-acis/ROLE-SDK.git && \
+	cd ROLE-SDK && \
+	#git checkout tags/v10.2 -b localBuildBranch && \
+	git checkout develop  && \
+	mvn clean package && \
+	cp assembly/target/role-m10-sdk.tar.gz /ROLE/role.tar.gz && \
+	cd /ROLE && \
+	tar -xzf role.tar.gz && \
+	rm role.tar.gz
 
 ######## CAE ###########
 RUN cd source && \
