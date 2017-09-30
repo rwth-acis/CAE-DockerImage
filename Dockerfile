@@ -129,7 +129,6 @@ RUN cd /ROLE && \
 	tar -xzf role.tar.gz && \
 	rm role.tar.gz
 
-# Add default appliction structure and deployment script
 RUN cd /opt/configserver && \
 	npm install && \
 	cp /source/RoleApiJS/lib/roleApiJS.js roleApiJS.js
