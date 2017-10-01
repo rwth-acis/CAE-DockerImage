@@ -25,6 +25,8 @@ This will run the container detached. To run the image in a container that will 
 ```shell
 docker run -it --rm 1234:1234 -p 8073:8073 -p 8080:8080 -p 3000:3000 -p 8081:8081 -p 8001:8001 --name cae cae
 ```
+You can also just run the "runImageStandardConf.sh" script, that will just execute the command above.
+
 To run the image detached without specifying port bindings yourself use
 ```shell
 docker run -d -P --name cae cae
