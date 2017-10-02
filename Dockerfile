@@ -135,7 +135,6 @@ RUN cd /opt/configserver && \
 
 RUN chmod +x /opt/cae/deployment.sh && \
 	chmod +x /opt/startup.sh && \
-	chmod +x /opt/syncmeta/start.sh && \
 	chmod +x /opt/caefrontend/start.sh && \
 	chmod +x /opt/jenkins/start.sh
 
