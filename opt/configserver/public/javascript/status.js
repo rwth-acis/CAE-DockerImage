@@ -16,5 +16,18 @@ $( document ).ready(function() {
         setTimeout(getStatus,5000);
     }
 
+    function getToken() {
+        $.ajax({
+            url: '/gettoken',
+            type: 'GET',
+            success: function (data) {
+                console.log(data);
+                var text = "";
+                $("#authInput").val(data);
+            }
+        });
+    }
+
+    getToken();
     getStatus();
 });

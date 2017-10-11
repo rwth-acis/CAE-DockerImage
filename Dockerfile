@@ -40,19 +40,6 @@ COPY mysql.cnf /etc/mysql/my.cnf
 COPY mysqld_charset.cnf /etc/mysql/mysqld_charset.cnf
 
 RUN mysql_install_db > /dev/null 2>&1
-
-# ######## ROLE ##########
-RUN mkdir source && \
-	mkdir ROLE && \
-	cd source && \
-	git clone https://github.com/rwth-acis/ROLE-SDK.git && \
-	cd ROLE-SDK && \
-	git checkout tags/v10.2 -b localBuildBranch && \
-	mvn clean package && \
-	cp assembly/target/role-m10-sdk.tar.gz /ROLE/role.tar.gz && \
-	cd /ROLE && \
-	tar -xzf role.tar.gz && \
-	rm role.tar.gz
 	
 #Create file structure
 RUN mkdir CAE && \
@@ -61,8 +48,43 @@ RUN mkdir CAE && \
 	mkdir CAE/service && \
     mkdir web
 
+###### Docker #########
+RUN apt-get update && \
+	apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common && \
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
+	add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") $(lsb_release -cs) stable" && \
+	apt-get update && \
+	apt-get install -y docker-ce
+
+COPY opt /opt
+
+###### Jenkins #########
+RUN cd / && \
+	mkdir DockerJenkins && \
+	cd DockerJenkins/ && \
+	wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war && \
+	mkdir /root/.jenkins && \
+	touch /root/.jenkins/jenkins.install.InstallUtil.lastExecVersion && \
+	echo "2.0" >> /root/.jenkins/jenkins.install.InstallUtil.lastExecVersion && \
+	cp /opt/jenkins/configs/config.xml /root/.jenkins/
+
+######### ROLE ##########
+#RUN mkdir source && \
+#	mkdir ROLE && \
+#	cd source && \
+#	git clone https://github.com/rwth-acis/ROLE-SDK.git && \
+#	cd ROLE-SDK && \
+	#git checkout tags/v10.2 -b localBuildBranch && \
+#	git checkout develop  && \
+#	mvn clean package && \
+#	cp assembly/target/role-m10-sdk.tar.gz /ROLE/role.tar.gz && \
+#	cd /ROLE && \
+#	tar -xzf role.tar.gz && \
+#	rm role.tar.gz
+
 ######## CAE ###########
-RUN cd source && \
+RUN mkdir source && \
+	cd source && \
   	git clone https://github.com/rwth-acis/CAE-Model-Persistence-Service.git && \
  	git clone https://github.com/rwth-acis/CAE-Code-Generation-Service.git && \
   	git clone https://github.com/rwth-acis/CAE-Frontend.git && \
@@ -94,18 +116,26 @@ RUN cd source && \
 	cp .localGruntConfig.json.sample .localGruntConfig.json && \
 	cp .dbis.secret.json.sample .dbis.secret.json && \
 	grunt build && \
-	cd ../CAE-Frontend
+	cd ../CAE-Frontend/widgets && \
+	bower install --allow-root && \
+	npm install && \
+	cp src/liveCodeEditorWidget/lib/config.js.sample src/liveCodeEditorWidget/lib/config.js && \
+	grunt --yjsserver="http://localhost:1234"
 ########################
 
-# Add default appliction structure and deployment script
-COPY opt /opt
+COPY role-m10-sdk.tar.gz /ROLE/role.tar.gz
+
+RUN cd /ROLE && \
+	tar -xzf role.tar.gz && \
+	rm role.tar.gz
+
 RUN cd /opt/configserver && \
 	npm install && \
 	cp /source/RoleApiJS/lib/roleApiJS.js roleApiJS.js
 
 RUN chmod +x /opt/cae/deployment.sh && \
 	chmod +x /opt/startup.sh && \
-	chmod +x /opt/syncmeta/start.sh
+	chmod +x /opt/jenkins/start.sh
 
 # Copy supervisor config
 COPY configs /etc/supervisor/conf.d

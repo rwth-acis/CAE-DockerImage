@@ -7,6 +7,37 @@ var fs = require('fs');
 var exec = require('child_process').exec;
 var roleApi = require('./roleApiJS.js');
 
+var token;
+
+/*Y({
+    db: {
+        name: 'memory' // store the shared data in memory
+    },
+    connector: {
+        name: 'websockets-client', // use the websockets connector
+        room: spaceTitle,
+        url: 'http://localhost:1234'
+    },
+    share: { // specify the shared content
+        users: 'Map',
+        undo: 'Array',
+        redo: 'Array',
+        join: 'Map',
+        canvas: 'Map',
+        nodes: 'Map',
+        edges: 'Map',
+        userList: 'Map',
+        select: 'Map',
+        views: 'Map',
+        data: 'Map',
+        text: "Text"
+    },
+    sourceDir: 'http://localhost:8001/frontendComponentPersistenceWidget/js'
+}).then(function(y) {
+    console.info('PERSISTENCE: Yjs successfully initialized');
+});
+*/
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 
@@ -46,14 +77,14 @@ app.get('/generateSpaces/:auth', function(req, res) {
         api.addWidgetToSpace("CAEMicroservice","","http://localhost:8081/attribute.xml")
         api.addWidgetToSpace("CAEMicroservice","","http://localhost:8081/activity.xml")
         api.addWidgetToSpace("CAEMicroservice","","http://localhost:8081/palette.xml")
+        api.addWidgetToSpace("CAEMicroservice","","http://localhost:8081/debug.xml")
+        api.addWidgetToSpace("CAEMicroservice","","http://localhost:8001/microservicePersistenceWidget/widget.xml")
+        api.addWidgetToSpace("CAEMicroservice","","http://localhost:8001/liveCodeEditorWidget/MicroserviceEditorWidget.xml")
     })
     .catch((err) => {
         res.sendStatus(500);
     });
     
-    //TODO: CAE Frontend parts
-    
-
     //CAEFrontend
     console.log("Creating frontend space")
     api.createSpace("CAEFrontend").then((res) => {
@@ -61,6 +92,10 @@ app.get('/generateSpaces/:auth', function(req, res) {
         api.addWidgetToSpace("CAEFrontend","","http://localhost:8081/attribute.xml")
         api.addWidgetToSpace("CAEFrontend","","http://localhost:8081/activity.xml")
         api.addWidgetToSpace("CAEFrontend","","http://localhost:8081/palette.xml")
+        api.addWidgetToSpace("CAEFrontend","","http://localhost:8081/debug.xml")
+        api.addWidgetToSpace("CAEFrontend","","http://localhost:8001/frontendComponentPersistenceWidget/widget.xml")
+        api.addWidgetToSpace("CAEFrontend","","http://localhost:8001/liveCodeEditorWidget/FrontendEditorWidget.xml")
+        api.addWidgetToSpace("CAEFrontend","","http://localhost:8001/liveCodeEditorWidget/LivePreviewWidget.xml")
     })
     .catch((err) => {
         res.sendStatus(500);
@@ -71,6 +106,10 @@ app.get('/generateSpaces/:auth', function(req, res) {
     console.log("Creating application space")
     api.createSpace("CAEApplication").then((res) => {
         api.addWidgetToSpace("CAEApplication","","http://localhost:8081/widget.xml")
+        api.addWidgetToSpace("CAEApplication","","http://localhost:8081/debug.xml")
+        api.addWidgetToSpace("CAEApplication","","http://localhost:8001/frontendComponentSelectWidget/widget.xml")
+        api.addWidgetToSpace("CAEApplication","","http://localhost:8001/microserviceSelectWidget/widget.xml")
+        api.addWidgetToSpace("CAEApplication","","http://localhost:8001/applicationPersistenceWidget/widget.xml")
     })
     .catch((err) => {
         res.sendStatus(500);
@@ -174,6 +213,19 @@ app.get('/stop/:service', function(req, res) {
     }
 
     exec(`supervisorctl stop ${service}`, puts);
+});
+
+app.get('/savetoken/:auth', function(req, res){
+    token = req.params.auth;
+    res.sendStatus(200);
+});
+
+app.get('/gettoken', function(req, res){
+    if(token) {
+        res.send(token);
+    } else {
+        res.send("Error");
+    }
 });
 
 var server = app.listen(3000, function(){
